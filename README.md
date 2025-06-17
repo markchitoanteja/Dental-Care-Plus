@@ -1,37 +1,38 @@
 
-# Bus Reservation System – Capstone Project
+# Dental Care Plus – Capstone Project
 
-This is a **Bus Reservation System** built using the [CodeIgniter 4](https://codeigniter.com/) PHP framework. It is developed as a capstone project for **Eastern Samar State University - Can-Avid Campus** in collaboration with our client, **Eastern Goldtrans Tours**. The system is based on a ready-to-use CodeIgniter 4 template with essential pre-configured features like database setup, user authentication, and a clean project structure — ideal for rapid web development.
+**Dental Care Plus** is a web-based **Dental Clinic Management System** developed using the [CodeIgniter 4](https://codeigniter.com/) PHP framework. This system was created as a capstone project for **Eastern Samar State University - Can-Avid Campus** in partnership with our client, **Dental Care Plus Clinic**. It is based on a pre-configured CodeIgniter 4 template that includes built-in features such as authentication, a clean folder structure, and database integration — providing a strong foundation for modern web application development.
 
 ## Project Features
 
-- Secure user authentication (with bcrypt hashing)
-- Admin panel for managing trips, bookings, and users
-- Route and schedule management
-- Real-time seat reservation
-- Trip history and reporting
-- UUID-based primary keys for improved data handling
-- Mobile-friendly UI with responsive components
+- Secure user authentication (using bcrypt hashing)
+- Admin panel for managing patients, appointments, and dental services
+- Dentist and patient account types with role-based access
+- Appointment booking with calendar view
+- Dental record and treatment history tracking
+- Real-time notification for upcoming appointments
+- UUID-based primary keys for better scalability and security
+- Responsive design with mobile-first UI components
 
 ## Requirements
 
-- PHP >= 7.4
-- Composer
-- MySQL or MariaDB
-- CodeIgniter 4.x
+- PHP >= 7.4  
+- Composer  
+- MySQL or MariaDB  
+- CodeIgniter 4.x  
 
 ## Installation Instructions
 
-Follow the steps below to set up and run the project locally:
+Follow the steps below to install and run the project locally:
 
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/markchitoanteja/Bus-Reservation-System
-cd Codeigniter-4-Template
+git clone https://github.com/markchitoanteja/Dental-Care-Plus
+cd Dental-Care-Plus
 ```
 
-> *(Optional: You may rename the folder to `bus-reservation-system`)*
+> *(Optional: Rename the folder if needed)*
 
 ### Step 2: Install Dependencies
 
@@ -41,7 +42,7 @@ composer install
 
 ### Step 3: Set Up the Database
 
-1. Create a new database in MySQL/MariaDB (e.g., `bus_reservation`).
+1. Create a new database in MySQL/MariaDB (e.g., `dental_care_plus`).
 2. Open `app/Config/Database.php` and configure your connection:
 
 ```php
@@ -50,15 +51,15 @@ public $default = [
     'hostname' => 'localhost',
     'username' => 'your-db-username',
     'password' => 'your-db-password',
-    'database' => 'bus_reservation',
+    'database' => 'dental_care_plus',
     'DBDriver' => 'MySQLi',
     ...
 ];
 ```
 
-### Step 4: Set the Timezone (Optional)
+### Step 4: Configure Timezone (Optional)
 
-Open `app/Config/App.php` and set your local timezone:
+Set your local timezone in `app/Config/App.php`:
 
 ```php
 public $appTimezone = 'Asia/Manila';
@@ -66,45 +67,45 @@ public $appTimezone = 'Asia/Manila';
 
 ### Step 5: Run the Application
 
-Start your local server (e.g., Apache/Nginx) and navigate to:
+Start your local server (e.g., Apache/Nginx) and go to:
 
 ```
-http://localhost/Codeigniter-4-Template
+http://localhost/Dental-Care-Plus
 ```
 
-If the database is configured correctly, required tables will be created automatically, along with an initial admin account.
+If the setup is successful, the system will auto-generate the required tables and an initial admin account.
 
 ### Step 6: Default Admin Account
 
-To access the admin panel, use the default credentials:
+Use the default credentials to log in:
 
-- **Username**: `admin`
-- **Password**: `admin123`
+- **Username**: `admin`  
+- **Password**: `admin123`  
 
-> **Important**: Change the default password after first login for security.
+> ⚠️ **Note**: Please update the password after your first login for security purposes.
 
 ---
 
 ## Project Structure Highlights
 
-- `app/Models` – Database interaction logic
-- `app/Controllers` – Application control flow
-- `app/Views` – UI templates (using CodeIgniter 4’s View rendering)
-- `app/Filters/Auth.php` – Route access control via middleware
+- `app/Models` – Handles data logic and database operations  
+- `app/Controllers` – Directs the flow between views and models  
+- `app/Views` – Contains the UI templates using CodeIgniter 4’s view system  
+- `app/Filters/Auth.php` – Manages route protection using middleware  
 
 ---
 
 ## License
 
-This project uses the **MIT License** – see the [LICENSE](LICENSE) file for more information.
+This project is open-sourced under the **MIT License** – see the [LICENSE](LICENSE) file for full details.
 
 ## Contributions
 
-This project welcomes contributions! Whether it's feature suggestions, bug reports, or pull requests, feel free to fork and collaborate.
+We welcome contributions from the community! Whether it's feature improvements, bug reports, or pull requests, feel free to fork the project and collaborate.
 
 ## Acknowledgements
 
-- **Eastern Samar State University – Can-Avid** for guiding this capstone project  
-- **Eastern Goldtrans Tours** as our project client  
+- **Eastern Samar State University – Can-Avid** for academic support  
+- **Dental Care Plus Clinic** as our partner client  
 - [CodeIgniter 4](https://codeigniter.com/) for the development framework  
-- [Ramsey UUID](https://ramsey.github.io/uuid/) for UUID-based IDs
+- [Ramsey UUID](https://ramsey.github.io/uuid/) for universally unique ID generation  
