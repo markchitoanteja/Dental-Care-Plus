@@ -1,2 +1,2 @@
-/writable/session/session
+/writable/session/session/*
 !/writable/session/session/index.html
