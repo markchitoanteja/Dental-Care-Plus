@@ -1,2 +1,4 @@
-/writable/session/session/*
-!/writable/session/session/index.html
+/writable/session/
+/writable/logs/
+!/writable/session/index.html
+!/writable/logs/index.html

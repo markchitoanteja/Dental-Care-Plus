@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- SEO -->
-    <title>DentalCare+ | Trusted Dental Services in Can-avid, Eastern Samar</title>
+    <title>DentalCare+ | <?= session()->get('page_title') ?></title>
 
     <meta name="description" content="DentalCare+ offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.">
     <meta name="author" content="DentalCare+ Web Team">
@@ -17,48 +17,82 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="public/dist/home/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="public/dist/home/css/animate.css">
-    <link rel="stylesheet" href="public/dist/home/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="public/dist/home/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="public/dist/home/css/magnific-popup.css">
-    <link rel="stylesheet" href="public/dist/home/css/ionicons.min.css">
-    <link rel="stylesheet" href="public/dist/home/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="public/dist/home/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="public/dist/home/css/flaticon.css">
-    <link rel="stylesheet" href="public/dist/home/css/icomoon.css">
-    <link rel="stylesheet" href="public/dist/home/css/style.css">
+    <link rel="stylesheet" href="public/dist/landing/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="public/dist/landing/css/animate.css">
+    <link rel="stylesheet" href="public/dist/landing/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="public/dist/landing/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="public/dist/landing/css/magnific-popup.css">
+    <link rel="stylesheet" href="public/dist/landing/css/ionicons.min.css">
+    <link rel="stylesheet" href="public/dist/landing/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="public/dist/landing/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="public/dist/landing/css/flaticon.css">
+    <link rel="stylesheet" href="public/dist/landing/css/icomoon.css">
+    <link rel="stylesheet" href="public/dist/landing/css/style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Dental<span>Care+</span></a>
+            <a class="navbar-brand" href="<?= base_url() ?>">Dental<span>Care+</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="javascript:void(0)" class="nav-link">Our Services</a></li>
-                    <li class="nav-item"><a href="javascript:void(0)" class="nav-link">Patient Reviews</a></li>
+                    <li class="nav-item active"><a href="<?= base_url() ?>" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="<?= base_url('about_us') ?>" class="nav-link">About Us</a></li>
+                    <li class="nav-item"><a href="<?= base_url('services') ?>" class="nav-link">Our Services</a></li>
+                    <li class="nav-item"><a href="<?= base_url('contact_us') ?>" class="nav-link">Contact Us</a></li>
+                    <?php if (session()->get("user")): ?>
+                        <li class="nav-item dropdown cta">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><?= session()->get("user")["name"] ?></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <!-- General -->
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fas fa-user mr-2"></i> Profile
+                                </a>
 
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?= session()->get("user") ? session()->get("user")["name"] : "Patient Portal" ?>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
-                            <?php if (session()->get("user")): ?>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#profileModal">Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)" id="logoutBtn">Logout</a>
-                            <?php else: ?>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">Login</a>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#registerModal">Register</a>
-                            <?php endif ?>
-                        </div>
-                    </li>
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Services -->
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fas fa-calendar-check mr-2"></i> Appointments
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fas fa-box mr-2"></i> Packages
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="fas fa-receipt mr-2"></i> Billing
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Communication -->
+                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0)">
+                                    <div><i class="fas fa-envelope mr-2"></i> Messages</div>
+                                    <span class="badge bg-danger text-white">3</span> <!-- Example unread badge -->
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Action -->
+                                <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                </a>
+                            </div>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item cta"><a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#loginModal"><span>Sign In</span></a></li>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>
@@ -66,7 +100,7 @@
 
     <section class="home-slider owl-carousel" aria-label="DentalCare+ Main Slider">
         <!-- Slide 1 -->
-        <div class="slider-item" style="background-image: url('public/dist/home/images/bg_1.jpg');" role="group" aria-roledescription="slide" aria-label="Easy Online Booking & Care Management">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_1.jpg');" role="group" aria-roledescription="slide" aria-label="Easy Online Booking & Care Management">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -86,7 +120,7 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="slider-item" style="background-image: url('public/dist/home/images/bg_2.jpg');" role="group" aria-roledescription="slide" aria-label="Making Your Dental Visits Smooth & Convenient">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_2.jpg');" role="group" aria-roledescription="slide" aria-label="Making Your Dental Visits Smooth & Convenient">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -106,7 +140,7 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="slider-item" style="background-image: url('public/dist/home/images/bg_3.jpg');" role="group" aria-roledescription="slide" aria-label="Trusted Care You Can Rely On">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_3.jpg');" role="group" aria-roledescription="slide" aria-label="Trusted Care You Can Rely On">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -137,7 +171,7 @@
                 <div class="col-md-3 color-2 p-4">
                     <h3 class="mb-4">Opening Hours</h3>
                     <p class="openinghours d-flex">
-                        <span>Monday - Friday</span>
+                        <span>Weekdays</span>
                         <span>8:00 - 7:00 PM</span>
                     </p>
                     <p class="openinghours d-flex">
@@ -159,11 +193,34 @@
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select class="form-control">
-                                            <option value selected disabled>Select Department</option>
-                                            <option value="Teeth Whitening" class="text-dark">Teeth Whitening</option>
-                                            <option value="Teeth Cleaning" class="text-dark">Teeth Cleaning</option>
-                                            <option value="Quality Brackets" class="text-dark">Quality Brackets</option>
-                                            <option value="Modern Anesthetic" class="text-dark">Modern Anesthetic</option>
+                                            <option value="" selected disabled class="text-dark">Select a Service</option>
+
+                                            <optgroup label="General Dentistry" class="text-dark">
+                                                <option value="Dental Consultation" class="text-dark">Dental Consultation</option>
+                                                <option value="Oral Prophylaxis (Teeth Cleaning)" class="text-dark">Oral Prophylaxis (Teeth Cleaning)</option>
+                                                <option value="Tooth Extraction" class="text-dark">Tooth Extraction</option>
+                                                <option value="Tooth Filling (Pasta)" class="text-dark">Tooth Filling (Pasta)</option>
+                                                <option value="Dental X-ray" class="text-dark">Dental X-ray</option>
+                                            </optgroup>
+
+                                            <optgroup label="Cosmetic Dentistry" class="text-dark">
+                                                <option value="Teeth Whitening" class="text-dark">Teeth Whitening</option>
+                                                <option value="Veneers" class="text-dark">Veneers</option>
+                                                <option value="Tooth Crown/Bridge" class="text-dark">Tooth Crown / Bridge</option>
+                                            </optgroup>
+
+                                            <optgroup label="Orthodontics" class="text-dark">
+                                                <option value="Braces Installation" class="text-dark">Braces Installation</option>
+                                                <option value="Retainer Fitting" class="text-dark">Retainer Fitting</option>
+                                            </optgroup>
+
+                                            <optgroup label="Specialty Services" class="text-dark">
+                                                <option value="Root Canal Treatment" class="text-dark">Root Canal Treatment</option>
+                                                <option value="Dentures (Full/Partial)" class="text-dark">Dentures (Full/Partial)</option>
+                                                <option value="Dental Implants" class="text-dark">Dental Implants</option>
+                                                <option value="Gum Treatment (Deep Cleaning)" class="text-dark">Gum Treatment (Deep Cleaning)</option>
+                                                <option value="Pediatric Dentistry (Kids)" class="text-dark">Pediatric Dentistry (Kids)</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div>
@@ -268,7 +325,7 @@
         </div>
         <div class="container-wrap mt-5">
             <div class="row d-flex no-gutters">
-                <div class="col-md-6 img" style="background-image: url(public/dist/home/images/about-2.jpg);"></div>
+                <div class="col-md-6 img" style="background-image: url(public/dist/landing/images/about-2.jpg);"></div>
                 <div class="col-md-6 d-flex">
                     <div class="about-wrap">
                         <div class="heading-section heading-section-white mb-5 ftco-animate">
@@ -320,7 +377,7 @@
                 <!-- Dentist 1 -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/home/images/person_5.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_5.jpg);"></div>
                         <div class="info text-center">
                             <h3><a href="teacher-single.html">Tom Smith</a></h3>
                             <span class="position">General Dentist</span>
@@ -339,7 +396,7 @@
                 <!-- Dentist 2 -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/home/images/person_6.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_6.jpg);"></div>
                         <div class="info text-center">
                             <h3><a href="teacher-single.html">Mark Wilson</a></h3>
                             <span class="position">Orthodontist</span>
@@ -358,7 +415,7 @@
                 <!-- Dentist 3 -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/home/images/person_7.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_7.jpg);"></div>
                         <div class="info text-center">
                             <h3><a href="teacher-single.html">Patrick Jacobson</a></h3>
                             <span class="position">Pediatric Dentist</span>
@@ -377,7 +434,7 @@
                 <!-- Staff 4 -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/home/images/person_8.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_8.jpg);"></div>
                         <div class="info text-center">
                             <h3><a href="teacher-single.html">Ivan Dorchsner</a></h3>
                             <span class="position">Dental Hygienist</span>
@@ -402,7 +459,7 @@
         </div>
     </section>
 
-    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(public/dist/home/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(public/dist/landing/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row d-flex align-items-center">
                 <div class="col-md-3 aside-stretch py-5">
@@ -451,6 +508,83 @@
         </div>
     </section>
 
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2 class="mb-3">Affordable Dental Packages</h2>
+                    <p>Quality dental care made accessible — choose a plan that fits your needs and budget.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 ftco-animate">
+                    <div class="pricing-entry pb-5 text-center">
+                        <div>
+                            <h3 class="mb-4">Basic</h3>
+                            <p><span class="price">₱800</span> <span class="per">/ visit</span></p>
+                        </div>
+                        <ul>
+                            <li>Oral Examination</li>
+                            <li>Dental Cleaning</li>
+                            <li>Consultation</li>
+                            <li>Fluoride Application</li>
+                            <li>Dental Advice</li>
+                        </ul>
+                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
+                    </div>
+                </div>
+                <div class="col-md-3 ftco-animate">
+                    <div class="pricing-entry pb-5 text-center">
+                        <div>
+                            <h3 class="mb-4">Standard</h3>
+                            <p><span class="price">₱1,500</span> <span class="per">/ visit</span></p>
+                        </div>
+                        <ul>
+                            <li>Basic Package Services</li>
+                            <li>Tooth Filling (1–2 teeth)</li>
+                            <li>X-ray Imaging</li>
+                            <li>Gum Care Evaluation</li>
+                            <li>Oral Hygiene Kit</li>
+                        </ul>
+                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
+                    </div>
+                </div>
+                <div class="col-md-3 ftco-animate">
+                    <div class="pricing-entry active pb-5 text-center">
+                        <div>
+                            <h3 class="mb-4">Premium</h3>
+                            <p><span class="price">₱3,200</span> <span class="per">/ session</span></p>
+                        </div>
+                        <ul>
+                            <li>Standard Package Services</li>
+                            <li>Tooth Extraction (simple)</li>
+                            <li>Teeth Whitening (1 session)</li>
+                            <li>Customized Treatment Plan</li>
+                            <li>Priority Scheduling</li>
+                        </ul>
+                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
+                    </div>
+                </div>
+                <div class="col-md-3 ftco-animate">
+                    <div class="pricing-entry pb-5 text-center">
+                        <div>
+                            <h3 class="mb-4">Platinum</h3>
+                            <p><span class="price">₱5,500</span> <span class="per">/ session</span></p>
+                        </div>
+                        <ul>
+                            <li>Premium Package Services</li>
+                            <li>Tooth Implants (initial consult)</li>
+                            <li>Advanced Whitening</li>
+                            <li>Restorative Consultation</li>
+                            <li>Follow-up Care Included</li>
+                        </ul>
+                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="ftco-section testimony-section bg-light">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
@@ -464,7 +598,7 @@
                     <div class="carousel-testimony owl-carousel ftco-owl">
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/home/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
@@ -478,7 +612,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/home/images/person_2.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_2.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
@@ -492,7 +626,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/home/images/person_3.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_3.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
@@ -506,7 +640,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/home/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
@@ -520,7 +654,7 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/home/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
@@ -604,33 +738,37 @@
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content shadow-sm border-0 rounded">
+                <div class="modal-header bg-light border-0">
+                    <h5 class="modal-title font-weight-bold" id="loginModalLabel">Welcome Back</h5>
+                    <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="javascript:void(0)" id="loginForm">
-                    <div class="modal-body">
-                        <div class="alert alert-danger text-center d-none" id="loginError">Invalid Username or Password</div>
+                    <div class="modal-body px-4">
+                        <div class="alert alert-danger text-center d-none" id="loginError">Invalid email or password</div>
                         <div class="form-group">
-                            <label for="loginEmail" class="mb-0">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
+                            <label for="loginEmail" class="font-weight-bold mb-0">Email</label>
+                            <input type="email" class="form-control rounded-pill" id="loginEmail" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
-                            <label for="loginPassword" class="mb-0">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
+                            <label for="loginPassword" class="font-weight-bold mb-0">Password</label>
+                            <input type="password" class="form-control rounded-pill" id="loginPassword" placeholder="Enter your password" required>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger px-lg-5 px-3" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success px-lg-5 px-3">Login</button>
+                    <div class="modal-footer border-0 d-flex flex-column align-items-center gap-2">
+                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2 mb-2">Login</button>
+
+                        <div class="text-center w-100 mb-0">
+                            <small>Don't have an account?
+                                <a href="#" id="showRegister">Register here</a>
+                            </small>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -640,403 +778,72 @@
     <!-- Register Modal -->
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content shadow-sm border-0 rounded">
+                <div class="modal-header bg-light border-0">
+                    <h5 class="modal-title font-weight-bold" id="registerModalLabel">Create an Account</h5>
+                    <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="javascript:void(0)" id="registerForm">
-                    <div class="modal-body">
-                        <div class="alert alert-danger text-center d-none" id="registerError">Please check your input and try again</div>
+                    <div class="modal-body px-4">
+                        <div class="alert alert-danger text-center d-none" id="registerError">Please correct the errors below</div>
                         <div class="form-group">
-                            <label for="registerName" class="mb-0">Full Name</label>
-                            <input type="text" class="form-control" id="registerName" required>
+                            <label for="registerName" class="font-weight-bold mb-0">Full Name</label>
+                            <input type="text" class="form-control rounded-pill" id="registerName" placeholder="Enter your name" required>
                         </div>
                         <div class="form-group">
-                            <label for="registerEmail" class="mb-0">Email Address</label>
-                            <input type="email" class="form-control" id="registerEmail" required>
+                            <label for="registerEmail" class="font-weight-bold mb-0">Email</label>
+                            <input type="email" class="form-control rounded-pill" id="registerEmail" placeholder="Enter your email" required>
                             <small class="text-danger d-none" id="errorRegisterEmail">Email already exists.</small>
                         </div>
                         <div class="form-group">
-                            <label for="registerPassword" class="mb-0">Password</label>
-                            <input type="password" class="form-control" id="registerPassword" required>
-                            <small class="text-danger d-none" id="errorRegisterPassword">Passwords must be at least 8 characters long and contain a mix of letters, numbers, and special characters.</small>
+                            <label for="registerPassword" class="font-weight-bold mb-0">Password</label>
+                            <input type="password" class="form-control rounded-pill" id="registerPassword" placeholder="Create a password" required>
+                            <small class="text-danger d-none" id="errorRegisterPassword">Minimum 8 characters with letters, numbers & special characters.</small>
                         </div>
                         <div class="form-group">
-                            <label for="confirmPassword" class="mb-0">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <label for="confirmPassword" class="font-weight-bold mb-0">Confirm Password</label>
+                            <input type="password" class="form-control rounded-pill" id="confirmPassword" placeholder="Confirm password" required>
                             <small class="text-danger d-none" id="errorConfirmPassword">Passwords do not match.</small>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger px-lg-5 px-3" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success px-lg-5 px-3">Register</button>
+                    <div class="modal-footer border-0 d-flex flex-column align-items-center gap-2 w-100">
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 mb-2">Register</button>
+
+                        <div class="text-center w-100 mb-0">
+                            <small>Already have an account?
+                                <a href="#" id="showLogin">Login here</a>
+                            </small>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <script src="public/dist/home/js/jquery.min.js"></script>
-    <script src="public/dist/home/js/jquery-migrate-3.0.1.min.js?v=1.0"></script>
-    <script src="public/dist/home/js/popper.min.js"></script>
-    <script src="public/dist/home/js/bootstrap.min.js"></script>
-    <script src="public/dist/home/js/jquery.easing.1.3.js"></script>
-    <script src="public/dist/home/js/jquery.waypoints.min.js"></script>
-    <script src="public/dist/home/js/jquery.stellar.min.js"></script>
-    <script src="public/dist/home/js/owl.carousel.min.js"></script>
-    <script src="public/dist/home/js/jquery.magnific-popup.min.js"></script>
-    <script src="public/dist/home/js/jquery.animateNumber.min.js"></script>
-    <script src="public/dist/home/js/bootstrap-datepicker.js"></script>
-    <script src="public/dist/home/js/jquery.timepicker.min.js"></script>
-    <script src="public/dist/home/js/scrollax.min.js"></script>
-    <script src="public/dist/home/js/main.js?v=1.2"></script>
+    <script>
+        const notification = <?php echo json_encode(session()->getFlashdata()); ?>;
+        const user = <?php echo json_encode(session()->get("user")); ?>;
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        $(document).ready(function() {
-            const notification = <?php echo json_encode(session()->getFlashdata()); ?>;
-            const user = <?php echo json_encode(session()->get("user")); ?>;
-
-            if (notification && Object.keys(notification).length > 0) {
-                displayPopupMessage(notification.message, notification.type);
-            }
-
-            $('a[href="#book_now_section"]').on('click', function(e) {
-                e.preventDefault();
-                const offset = 100;
-                const target = $($(this).attr('href'));
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - offset
-                    }, 800);
-                }
-            });
-
-            $('.appointment-form').on('submit', function(e) {
-                e.preventDefault();
-
-                const department = $('select.form-control').val();
-                const name = $('#appointment_name').val().trim();
-                const email = $('#appointment_email').val().trim();
-                const dateStr = $('.appointment_date').val().trim();
-                const timeStr = $('.appointment_time').val().trim();
-                const phone = $('#phone').val().trim();
-
-                const emailRegex = /^\S+@\S+\.\S+$/;
-                const phoneRegex = /^\+?\d{7,15}$/;
-
-                if (!department || department === "Select Department") {
-                    return Swal.fire('Validation Error', 'Please select a department.', 'warning');
-                }
-                if (!name) {
-                    return Swal.fire('Validation Error', 'Name is required.', 'warning');
-                }
-                if (!email || !emailRegex.test(email)) {
-                    return Swal.fire('Validation Error', 'Enter a valid email.', 'warning');
-                }
-                if (!dateStr) {
-                    return Swal.fire('Validation Error', 'Choose a date.', 'warning');
-                }
-                if (!timeStr || !/^\d{1,2}:\d{2}(?:\s?[APMapm]{2})?$/.test(timeStr)) {
-                    return Swal.fire('Validation Error', 'Enter a valid time (e.g. 10:00 AM).', 'warning');
-                }
-                if (!phone || !phoneRegex.test(phone)) {
-                    return Swal.fire('Validation Error', 'Enter a valid phone number.', 'warning');
-                }
-
-                // Validate Date
-                const dateObj = new Date(dateStr);
-                const today = new Date();
-                const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-                if (dateObj < tomorrow) {
-                    return Swal.fire('Invalid Date', 'Appointments must be scheduled at least one day in advance.', 'warning');
-                }
-
-                // Parse time to 24hr format for easier comparison
-                let time = timeStr.trim().toUpperCase();
-                if (time.includes('AM') || time.includes('PM')) {
-                    let [h, m] = time.replace(/AM|PM/, '').trim().split(':');
-                    h = parseInt(h);
-                    m = parseInt(m);
-                    if (time.includes('PM') && h !== 12) h += 12;
-                    if (time.includes('AM') && h === 12) h = 0;
-                    time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-                }
-
-                const [hourStr, minuteStr] = time.split(':');
-                const hour = parseInt(hourStr);
-                const minute = parseInt(minuteStr);
-                const totalMinutes = hour * 60 + minute;
-
-                // Day 0 = Sunday
-                const weekday = dateObj.getDay();
-                let openMin = 0,
-                    closeMin = 0;
-
-                if (weekday >= 1 && weekday <= 5) {
-                    openMin = 8 * 60;
-                    closeMin = 19 * 60;
-                } else if (weekday === 6) {
-                    openMin = 10 * 60;
-                    closeMin = 17 * 60;
-                } else if (weekday === 0) {
-                    openMin = 10 * 60;
-                    closeMin = 16 * 60;
-                }
-
-                if (totalMinutes < openMin || totalMinutes > closeMin) {
-                    return Swal.fire('Invalid Time', 'Selected time is outside working hours.', 'warning');
-                }
-
-                // All validations passed
-                Swal.fire({
-                    title: 'Appointment Submitted!',
-                    icon: 'success',
-                    html: `
-                        <p><strong>Department:</strong> ${department}</p>
-                        <p><strong>Name:</strong> ${name}</p>
-                        <p><strong>Email:</strong> ${email}</p>
-                        <p><strong>Date:</strong> ${dateStr}</p>
-                        <p><strong>Time:</strong> ${timeStr}</p>
-                        <p><strong>Phone:</strong> ${phone}</p>
-                    `
-                });
-
-                $(this)[0].reset();
-            });
-
-            $('#loginForm').on('submit', function(e) {
-                e.preventDefault();
-
-                const formId = 'loginForm';
-                const modalId = 'loginModal';
-
-                if (is_form_loading(formId)) {
-                    return;
-                }
-
-                $('#loginError').addClass('d-none');
-
-                is_form_loading(formId, true);
-
-                const email = $('#loginEmail').val().trim();
-                const password = $('#loginPassword').val().trim();
-                const rememberMe = $('#rememberMe').is(':checked') ? 1 : 0;
-
-                const formData = new FormData();
-
-                formData.append('email', email);
-                formData.append('password', password);
-                formData.append('remember', rememberMe);
-
-                $.ajax({
-                    url: 'login',
-                    data: formData,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.success) {
-                            if (response.user_type === 'admin') {
-                                window.location.href = 'admin/dashboard';
-                            } else {
-                                window.location.reload();
-                            }
-                        } else {
-                            reset_form_loading(formId);
-
-                            $('#loginError').removeClass('d-none');
-                        }
-                    },
-                    error: function(_, _, error) {
-                        console.error(error);
-                    }
-                });
-            });
-
-            $('#registerForm').on('submit', function(e) {
-                e.preventDefault();
-
-                const formId = 'registerForm';
-                const modalId = 'registerModal';
-
-                if (is_form_loading(formId)) {
-                    return;
-                }
-
-                // Hide all error messages
-                $('#registerError').addClass('d-none').text('');
-                $('#errorRegisterEmail, #errorRegisterPassword, #errorConfirmPassword').addClass('d-none');
-
-                const name = $('#registerName').val().trim();
-                const email = $('#registerEmail').val().trim();
-                const password = $('#registerPassword').val().trim();
-                const confirmPassword = $('#confirmPassword').val().trim();
-
-                let hasError = false;
-
-                // Email validation (basic regex)
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    $('#errorRegisterEmail').text('Please enter a valid email address.').removeClass('d-none');
-                    hasError = true;
-                }
-
-                // Password validation (min 8 chars, 1 letter, 1 number, 1 special character)
-                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-                if (!passwordRegex.test(password)) {
-                    $('#errorRegisterPassword').removeClass('d-none');
-                    hasError = true;
-                }
-
-                // Confirm password validation
-                if (password !== confirmPassword) {
-                    $('#errorConfirmPassword').removeClass('d-none');
-                    hasError = true;
-                }
-
-                if (hasError) return;
-
-                is_form_loading(formId, true);
-
-                const formData = new FormData();
-                formData.append('name', name);
-                formData.append('email', email);
-                formData.append('password', password);
-                formData.append('confirm_password', confirmPassword);
-
-                $.ajax({
-                    url: 'register',
-                    type: 'POST',
-                    data: formData,
-                    dataType: 'JSON',
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.success) {
-                            location.reload();
-                        } else {
-                            reset_form_loading(formId);
-
-                            $('#errorRegisterEmail').text('Email already exists.').removeClass('d-none');
-                        }
-                    },
-                    error: function(_, _, error) {
-                        console.error(error);
-                        reset_form_loading(formId);
-                        $('#registerError').text('An unexpected error occurred. Please try again.').removeClass('d-none');
-                    }
-                });
-            });
-
-            // Real-time validation error reset
-            $('#registerEmail').on('input', function() {
-                $('#errorRegisterEmail').addClass('d-none');
-            });
-
-            $('#registerPassword').on('input', function() {
-                $('#errorRegisterPassword').addClass('d-none');
-            });
-
-            $('#confirmPassword').on('input', function() {
-                $('#errorConfirmPassword').addClass('d-none');
-            });
-
-            $('#registerName').on('input', function() {
-                $('#registerError').addClass('d-none'); // If you want general errors hidden too
-            });
-
-            $("#logoutBtn").click(function() {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You will be logged out.",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, log out!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: 'logout',
-                            type: 'POST',
-                            success: function() {
-                                location.reload();
-                            },
-                            error: function(_, _, error) {
-                                console.error(error);
-                            }
-                        });
-                    }
-                });
-            });
-
-            function is_form_loading(form_id, set = false) {
-                const $form = $('#' + form_id);
-                const $submitBtn = $form.find('button[type="submit"]');
-                const $modal = $form.closest('.modal');
-
-                if (set) {
-                    $form.data('loading', true);
-
-                    $submitBtn.prop('disabled', true)
-                        .data('original-text', $submitBtn.html())
-                        .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Please wait...');
-
-                    $modal.data('bs.modal')?._config && Object.assign($modal.data('bs.modal')._config, {
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-
-                    $modal.find('[data-dismiss="modal"], .close').prop('disabled', true);
-                } else {
-                    return $form.data('loading') === true;
-                }
-            }
-
-            function reset_form_loading(form_id) {
-                const $form = $('#' + form_id);
-                const $submitBtn = $form.find('button[type="submit"]');
-                const $modal = $form.closest('.modal');
-
-                $form.data('loading', false);
-
-                $submitBtn.prop('disabled', false)
-                    .html($submitBtn.data('original-text'));
-
-                // Re-enable modal dismiss
-                $modal.data('bs.modal')?._config && Object.assign($modal.data('bs.modal')._config, {
-                    backdrop: true,
-                    keyboard: true
-                });
-
-                // Re-enable close buttons
-                $modal.find('[data-dismiss="modal"], .close').prop('disabled', false);
-            }
-
-            function displayPopupMessage(message, type = "info") {
-                const validTypes = ["success", "error", "warning", "info", "question"];
-                const icon = validTypes.includes(type) ? type : "info";
-
-                Swal.fire({
-                    icon: icon,
-                    title: message,
-                    confirmButtonText: 'OK',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    toast: true,
-                    position: 'top-end'
-                });
-            }
-        });
-    </script>
+    <script src="public/dist/landing/js/jquery.min.js"></script>
+    <script src="public/dist/landing/js/jquery-migrate-3.0.1.min.js?v=1.0"></script>
+    <script src="public/dist/landing/js/popper.min.js"></script>
+    <script src="public/dist/landing/js/bootstrap.min.js"></script>
+    <script src="public/dist/landing/js/jquery.easing.1.3.js"></script>
+    <script src="public/dist/landing/js/jquery.waypoints.min.js"></script>
+    <script src="public/dist/landing/js/jquery.stellar.min.js"></script>
+    <script src="public/dist/landing/js/owl.carousel.min.js"></script>
+    <script src="public/dist/landing/js/jquery.magnific-popup.min.js"></script>
+    <script src="public/dist/landing/js/jquery.animateNumber.min.js"></script>
+    <script src="public/dist/landing/js/bootstrap-datepicker.js"></script>
+    <script src="public/dist/landing/js/jquery.timepicker.min.js"></script>
+    <script src="public/dist/landing/js/scrollax.min.js"></script>
+    <script src="public/dist/landing/js/main.js?v=1.2"></script>
+    <script src="public/dist/landing/js/script.js?v=1.2"></script>
 </body>
 
 </html>
