@@ -2,11 +2,9 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\HTTP\RedirectResponse;
-
 class Admin extends BaseController
 {
-    public function index(): string|RedirectResponse
+    public function index()
     {
         $session = session();
 

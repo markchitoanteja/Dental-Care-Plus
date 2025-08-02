@@ -104,15 +104,15 @@
                 <div class="staff">
                     <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_5.jpg);"></div>
                     <div class="info text-center">
-                        <h3><a href="teacher-single.html">Tom Smith</a></h3>
+                        <h3><a href="javascript:void(0)">Tom Smith</a></h3>
                         <span class="position">General Dentist</span>
                         <div class="text">
                             <p>Tom has over 10 years of experience in restorative and preventive dental care. He is committed to helping patients maintain healthy, confident smiles through comprehensive treatment.</p>
                             <ul class="ftco-social">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -123,15 +123,15 @@
                 <div class="staff">
                     <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_6.jpg);"></div>
                     <div class="info text-center">
-                        <h3><a href="teacher-single.html">Mark Wilson</a></h3>
+                        <h3><a href="javascript:void(0)">Mark Wilson</a></h3>
                         <span class="position">Orthodontist</span>
                         <div class="text">
                             <p>Mark specializes in orthodontics, offering customized braces and aligners. He helps patients achieve beautiful, well-aligned smiles with personalized care and ...</p>
                             <ul class="ftco-social">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -142,15 +142,15 @@
                 <div class="staff">
                     <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_7.jpg);"></div>
                     <div class="info text-center">
-                        <h3><a href="teacher-single.html">Patrick Jacobson</a></h3>
+                        <h3><a href="javascript:void(0)">Patrick Jacobson</a></h3>
                         <span class="position">Pediatric Dentist</span>
                         <div class="text">
                             <p>Patrick focuses on pediatric dentistry, creating a fun and comforting environment. He ensures children develop healthy oral habits for a lifetime of strong teeth and gums.</p>
                             <ul class="ftco-social">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -161,15 +161,15 @@
                 <div class="staff">
                     <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_8.jpg);"></div>
                     <div class="info text-center">
-                        <h3><a href="teacher-single.html">Ivan Dorchsner</a></h3>
+                        <h3><a href="javascript:void(0)">Ivan Dorchsner</a></h3>
                         <span class="position">Dental Hygienist</span>
                         <div class="text">
                             <p>Ivan is skilled in dental hygiene, providing gentle cleanings and education. He supports patients in maintaining strong teeth and healthy gums between visits.</p>
                             <ul class="ftco-social">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                             </ul>
                         </div>
                     </div>

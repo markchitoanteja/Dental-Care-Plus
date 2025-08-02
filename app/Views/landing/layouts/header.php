@@ -12,23 +12,25 @@
     <meta name="author" content="DentalCare+ Web Team">
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= base_url("favicon.ico") ?>" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="public/dist/landing/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="public/dist/landing/css/animate.css">
-    <link rel="stylesheet" href="public/dist/landing/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="public/dist/landing/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="public/dist/landing/css/magnific-popup.css">
-    <link rel="stylesheet" href="public/dist/landing/css/ionicons.min.css">
-    <link rel="stylesheet" href="public/dist/landing/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="public/dist/landing/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="public/dist/landing/css/flaticon.css">
-    <link rel="stylesheet" href="public/dist/landing/css/icomoon.css">
-    <link rel="stylesheet" href="public/dist/landing/css/style.css">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/open-iconic-bootstrap.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/animate.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/owl.carousel.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/owl.theme.default.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/magnific-popup.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/ionicons.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/bootstrap-datepicker.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/jquery.timepicker.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/flaticon.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/icomoon.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/style.css") ?>">
 </head>
 
 <body>
@@ -51,10 +53,41 @@
                                 <span><?= session()->get("user")["name"] ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="javascript:void(0)">Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)">Settings</a>
+                                <!-- General -->
+                                <a class="dropdown-item <?= session()->get('current_page') === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('client/dashboard') ?>">
+                                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                </a>
+                                <a class="dropdown-item <?= session()->get('current_page') === 'profile' ? 'active' : '' ?>" href="<?= base_url('client/profile') ?>">
+                                    <i class="fas fa-user mr-2"></i> Profile
+                                </a>
+
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">Logout</a>
+
+                                <!-- Services -->
+                                <a class="dropdown-item <?= session()->get('current_page') === 'appointments' ? 'active' : '' ?>" href="<?= base_url('client/appointments') ?>">
+                                    <i class="fas fa-calendar-check mr-2"></i> Appointments
+                                </a>
+                                <a class="dropdown-item <?= session()->get('current_page') === 'packages' ? 'active' : '' ?>" href="<?= base_url('client/packages') ?>">
+                                    <i class="fas fa-box mr-2"></i> Packages
+                                </a>
+                                <a class="dropdown-item <?= session()->get('current_page') === 'billing' ? 'active' : '' ?>" href="<?= base_url('client/billing') ?>">
+                                    <i class="fas fa-receipt mr-2"></i> Billing
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Communication -->
+                                <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
+                                    <div><i class="fas fa-envelope mr-2"></i> Messages</div>
+                                    <span class="badge bg-danger text-white">3</span> <!-- Example unread badge -->
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Action -->
+                                <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                </a>
                             </div>
                         </li>
                     <?php else: ?>
@@ -66,7 +99,7 @@
     </nav>
 
     <section class="home-slider owl-carousel">
-        <div class="slider-item bread-item" style="background-image: url('public/dist/landing/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+        <div class="slider-item bread-item" style="background-image: url('<?=base_url("public/dist/landing/images/bg_1.jpg") ?>');" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container" data-scrollax-parent="true">
                 <div class="row slider-text align-items-end">

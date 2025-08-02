@@ -10,17 +10,16 @@
 
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/admin/fontawesome-free/css/all.min.css">
 
     <!-- AdminLTE -->
     <link rel="stylesheet" href="<?= base_url() ?>public/dist/admin/css/adminlte.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/admin/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/plugins/admin/overlayScrollbars/css/OverlayScrollbars.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url() ?>public/dist/admin/img/logo.png?v=1.2" alt="Logo" height="60" width="60">
@@ -394,11 +393,11 @@
     </div>
 
     <!-- Scripts -->
-    <script src="<?= base_url() ?>public/plugins/jquery/jquery.min.js"></script>
-    <script src="<?= base_url() ?>public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url() ?>public/plugins/moment/moment.min.js"></script>
-    <script src="<?= base_url() ?>public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="<?= base_url() ?>public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="<?= base_url() ?>public/plugins/admin/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>public/plugins/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url() ?>public/plugins/admin/moment/moment.min.js"></script>
+    <script src="<?= base_url() ?>public/plugins/admin/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="<?= base_url() ?>public/plugins/admin/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="<?= base_url() ?>public/dist/admin/js/adminlte.js"></script>
 
     <!-- Chart.js -->

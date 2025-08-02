@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    const client_pages = ["dashboard", "profile", "appointments", "packages", "billing", "messages"];
+
     if (notification && Object.keys(notification).length > 0) {
         displayPopupMessage(notification.message, notification.type);
     }
@@ -17,7 +19,6 @@ $(document).ready(function () {
     $('.appointment-form').on('submit', function (e) {
         e.preventDefault();
 
-        // 🛑 Check if user is logged in
         if (!user) {
             return Swal.fire({
                 title: 'Login Required',
@@ -27,7 +28,6 @@ $(document).ready(function () {
             });
         }
 
-        // ✅ Continue with your validation and submission logic
         const department = $('select.form-control').val();
         const name = $('#appointment_name').val().trim();
         const email = $('#appointment_email').val().trim();
@@ -57,7 +57,6 @@ $(document).ready(function () {
             return Swal.fire('Validation Error', 'Enter a valid phone number.', 'warning');
         }
 
-        // Validate Date
         const dateObj = new Date(dateStr);
         const today = new Date();
         const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
@@ -65,7 +64,6 @@ $(document).ready(function () {
             return Swal.fire('Invalid Date', 'Appointments must be scheduled at least one day in advance.', 'warning');
         }
 
-        // Parse and validate time
         let time = timeStr.trim().toUpperCase();
         if (time.includes('AM') || time.includes('PM')) {
             let [h, m] = time.replace(/AM|PM/i, '').trim().split(':');
@@ -100,21 +98,34 @@ $(document).ready(function () {
             return Swal.fire('Invalid Time', 'Selected time is outside working hours.', 'warning');
         }
 
-        // All validations passed
-        Swal.fire({
-            title: 'Appointment Submitted!',
-            icon: 'success',
-            html: `
-            <p><strong>Department:</strong> ${department}</p>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Date:</strong> ${dateStr}</p>
-            <p><strong>Time:</strong> ${timeStr}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-        `
-        });
+        const client_id = user.id || '';
 
-        $(this)[0].reset();
+        $("#make_appointment").prop('disabled', true).val('Please wait...');
+
+        var formData = new FormData();
+
+        formData.append('service', department);
+        formData.append('client_id', client_id);
+        formData.append('appointment_date', dateStr);
+        formData.append('appointment_time', timeStr);
+        formData.append('phone', phone);
+
+        $.ajax({
+            url: base_url + 'appointments/store',
+            data: formData,
+            type: 'POST',
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    location.reload();
+                }
+            },
+            error: function (_, _, error) {
+                console.error(error);
+            }
+        });
     });
 
     $('#loginForm').on('submit', function (e) {
@@ -142,7 +153,7 @@ $(document).ready(function () {
         formData.append('remember', rememberMe);
 
         $.ajax({
-            url: 'login',
+            url: base_url + 'login',
             data: formData,
             type: 'POST',
             dataType: 'JSON',
@@ -171,7 +182,6 @@ $(document).ready(function () {
         e.preventDefault();
 
         const formId = 'registerForm';
-        const modalId = 'registerModal';
 
         if (is_form_loading(formId)) {
             return;
@@ -219,7 +229,7 @@ $(document).ready(function () {
         formData.append('confirm_password', confirmPassword);
 
         $.ajax({
-            url: 'register',
+            url: base_url + 'register',
             type: 'POST',
             data: formData,
             dataType: 'JSON',
@@ -270,10 +280,14 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: 'logout',
+                    url: base_url + 'logout',
                     type: 'POST',
                     success: function () {
-                        location.reload();
+                        if (client_pages.includes(current_page)) {
+                            window.location.href = base_url;
+                        } else {
+                            location.reload();
+                        }
                     },
                     error: function (_, _, error) {
                         console.error(error);
@@ -295,6 +309,134 @@ $(document).ready(function () {
         $('#loginModal').modal('show');
     });
 
+    $('#profile_image').on('change', function (event) {
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile_image_display').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert("Please select a valid image file (JPG, PNG, etc.)");
+            $(this).val(''); // Reset the input if not valid
+        }
+    });
+
+    $('#profile_form').on('submit', function (e) {
+        e.preventDefault();
+
+        const $submitBtn = $('#profile_update_submit');
+        const originalText = $submitBtn.html();
+
+        $submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Please wait...').prop('disabled', true);
+
+        const formData = new FormData();
+        formData.append('name', $('#profile_name').val());
+        formData.append('email', $('#profile_email').val());
+        formData.append('phone', $('#profile_phone').val());
+        formData.append('address', $('#profile_address').val());
+        formData.append('birthdate', $('#profile_birthdate').val());
+        formData.append('gender', $('#profile_gender').val());
+
+        const image = $('#profile_image')[0].files[0];
+        if (image) formData.append('image', image);
+
+        $.ajax({
+            url: base_url + 'client/update_profile',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    location.reload(); // or show toast, etc.
+                } else {
+                    if (response.field) {
+                        $(`#profile_${response.field}`)
+                            .addClass('is-invalid')
+                            .after(`<small class="text-danger">${response.message}</small>`);
+                    }
+                    $submitBtn.html(originalText).prop('disabled', false);
+                }
+            },
+            error: function (_, _, error) {
+                console.error(error);
+                $submitBtn.html(originalText).prop('disabled', false);
+            }
+        });
+    });
+
+    $("#profile_email").on("input", function () {
+        // Clear previous inline error messages
+        $('#profile_email').removeClass('is-invalid');
+        $('.text-danger').remove();
+    });
+
+    $('#profile_password_form').on('submit', function (e) {
+        e.preventDefault();
+
+        // Clear previous errors
+        $('#profile_password_form .is-invalid').removeClass('is-invalid');
+        $('#profile_password_form .text-danger').remove();
+
+        const currentPassword = $('#profile_current_password').val().trim();
+        const newPassword = $('#profile_new_password').val().trim();
+        const confirmPassword = $('#profile_confirm_password').val().trim();
+
+        const formData = new FormData();
+        formData.append('current_password', currentPassword);
+        formData.append('new_password', newPassword);
+        formData.append('confirm_password', confirmPassword);
+
+        const $btn = $('#profile_password_submit');
+        const originalText = $btn.html();
+        $btn.html('<i class="fas fa-spinner fa-spin"></i> Updating...').prop('disabled', true);
+
+        $.ajax({
+            url: base_url + 'client/change_password',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    location.reload(); // or show success message
+                } else {
+                    const field = response.field;
+                    const message = response.message;
+
+                    if (field) {
+                        const $input = $('#profile_' + field);
+                        $input.addClass('is-invalid');
+                        $input.after('<small class="text-danger">' + message + '</small>');
+                    }
+
+                    $btn.html(originalText).prop('disabled', false);
+                }
+            },
+            error: function (_, _, error) {
+                console.error(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Something went wrong.',
+                });
+                $btn.html(originalText).prop('disabled', false);
+            }
+        });
+    });
+
+    // Clear errors as user types in any password field
+    $("#profile_current_password, #profile_new_password, #profile_confirm_password").on("input", function () {
+        $(this).removeClass('is-invalid');
+        $(this).next('.text-danger').remove(); // Remove only the one next to the current input
+    });
+
     function is_form_loading(form_id, set = false) {
         const $form = $('#' + form_id);
         const $submitBtn = $form.find('button[type="submit"]');
@@ -305,7 +447,7 @@ $(document).ready(function () {
 
             $submitBtn.prop('disabled', true)
                 .data('original-text', $submitBtn.html())
-                .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Please wait...');
+                .html('<i class="fas fa-spinner fa-spin"></i> Please wait...');
 
             $modal.data('bs.modal')?._config && Object.assign($modal.data('bs.modal')._config, {
                 backdrop: 'static',

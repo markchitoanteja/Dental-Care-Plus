@@ -1,4 +1,8 @@
 /writable/session/
 /writable/logs/
+/public/uploads/
+
 !/writable/session/index.html
 !/writable/logs/index.html
+!/public/uploads/admin/default-user-image.webp
+!/public/uploads/client/default-user-image.webp

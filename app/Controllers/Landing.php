@@ -9,17 +9,25 @@ class Landing extends BaseController
         session()->set('current_page', 'home');
         session()->set('page_title', 'Trusted Dental Services in Can-avid, Eastern Samar');
 
+        $body = view("landing/home");
+        $footer = view("landing/layouts/footer");
+
         if (session()->has('user')) {
             $user = session()->get('user');
 
             if (isset($user['user_type']) && $user['user_type'] === 'user') {
-                return view('landing/home');
+                return $body . $footer;
             } else {
                 return redirect()->to(base_url('admin/dashboard'));
             }
         }
 
-        return view('landing/home');
+        return $body . $footer;
+    }
+    
+    public function home()
+    {
+        return redirect()->to(base_url());
     }
 
     public function about_us()

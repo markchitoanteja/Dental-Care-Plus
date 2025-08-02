@@ -12,7 +12,7 @@
     <meta name="author" content="DentalCare+ Web Team">
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= base_url("favicon.ico") ?>" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -54,30 +54,30 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                 <!-- General -->
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?= base_url('client/dashboard') ?>">
                                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?= base_url('client/profile') ?>">
                                     <i class="fas fa-user mr-2"></i> Profile
                                 </a>
 
                                 <div class="dropdown-divider"></div>
 
                                 <!-- Services -->
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?= base_url('client/appointments') ?>">
                                     <i class="fas fa-calendar-check mr-2"></i> Appointments
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?= base_url('client/packages') ?>">
                                     <i class="fas fa-box mr-2"></i> Packages
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?= base_url('client/billing') ?>">
                                     <i class="fas fa-receipt mr-2"></i> Billing
                                 </a>
 
                                 <div class="dropdown-divider"></div>
 
                                 <!-- Communication -->
-                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="javascript:void(0)">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
                                     <span class="badge bg-danger text-white">3</span> <!-- Example unread badge -->
                                 </a>
@@ -184,7 +184,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 color-3 p-4">
-                    <h3 class="mb-2">Make an Appointment</h3>
+                    <h3 class="mb-2">Make an Appointment <?= !session("user") ? "<small class='text-light'>(Login Required)</small>" : "" ?></h3>
 
                     <form action="javascript:void(0)" class="appointment-form">
                         <div class="row">
@@ -192,7 +192,7 @@
                                 <div class="form-group">
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select class="form-control">
+                                        <select class="form-control" <?= !session("user") ? "disabled" : "" ?>>
                                             <option value="" selected disabled class="text-dark">Select a Service</option>
 
                                             <optgroup label="General Dentistry" class="text-dark">
@@ -228,13 +228,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="icon-user"></span></div>
-                                    <input type="text" class="form-control" id="appointment_name" placeholder="Name">
+                                    <input type="text" class="form-control" id="appointment_name" placeholder="Name" <?= !session("user") ? "disabled" : "readonly" ?> value="<?= session("user") ? session("user")["name"] : "" ?>">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="icon-paper-plane"></span></div>
-                                    <input type="email" class="form-control" id="appointment_email" placeholder="Email">
+                                    <input type="email" class="form-control" id="appointment_email" placeholder="Email" <?= !session("user") ? "disabled" : "readonly" ?> value="<?= session("user") ? session("user")["email"] : "" ?>">
                                 </div>
                             </div>
                         </div>
@@ -242,25 +242,25 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="ion-ios-calendar"></span></div>
-                                    <input type="text" class="form-control appointment_date" placeholder="Date">
+                                    <input type="text" class="form-control appointment_date" placeholder="Date" <?= !session("user") ? "disabled" : "" ?>>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="ion-ios-clock"></span></div>
-                                    <input type="text" class="form-control appointment_time" placeholder="Time">
+                                    <input type="text" class="form-control appointment_time" placeholder="Time" <?= !session("user") ? "disabled" : "" ?>>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="icon-phone2"></span></div>
-                                    <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                    <input type="text" class="form-control" id="phone" placeholder="Phone" <?= !session("user") ? "disabled" : "" ?>>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="Make an Appointment" class="btn btn-primary">
+                            <input type="submit" value="Make an Appointment" class="btn btn-primary" id="make_appointment">
                         </div>
                     </form>
                 </div>
@@ -379,15 +379,15 @@
                     <div class="staff">
                         <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_5.jpg);"></div>
                         <div class="info text-center">
-                            <h3><a href="teacher-single.html">Tom Smith</a></h3>
+                            <h3><a href="javascript:void(0)">Tom Smith</a></h3>
                             <span class="position">General Dentist</span>
                             <div class="text">
                                 <p>Tom has over 10 years of experience in restorative and preventive dental care. He is committed to helping patients maintain healthy, confident smiles through comprehensive treatment.</p>
                                 <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -398,15 +398,15 @@
                     <div class="staff">
                         <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_6.jpg);"></div>
                         <div class="info text-center">
-                            <h3><a href="teacher-single.html">Mark Wilson</a></h3>
+                            <h3><a href="javascript:void(0)">Mark Wilson</a></h3>
                             <span class="position">Orthodontist</span>
                             <div class="text">
                                 <p>Mark specializes in orthodontics, offering customized braces and aligners. He helps patients achieve beautiful, well-aligned smiles with personalized care and ...</p>
                                 <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -417,15 +417,15 @@
                     <div class="staff">
                         <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_7.jpg);"></div>
                         <div class="info text-center">
-                            <h3><a href="teacher-single.html">Patrick Jacobson</a></h3>
+                            <h3><a href="javascript:void(0)">Patrick Jacobson</a></h3>
                             <span class="position">Pediatric Dentist</span>
                             <div class="text">
                                 <p>Patrick focuses on pediatric dentistry, creating a fun and comforting environment. He ensures children develop healthy oral habits for a lifetime of strong teeth and gums.</p>
                                 <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -436,15 +436,15 @@
                     <div class="staff">
                         <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_8.jpg);"></div>
                         <div class="info text-center">
-                            <h3><a href="teacher-single.html">Ivan Dorchsner</a></h3>
+                            <h3><a href="javascript:void(0)">Ivan Dorchsner</a></h3>
                             <span class="position">Dental Hygienist</span>
                             <div class="text">
                                 <p>Ivan is skilled in dental hygiene, providing gentle cleanings and education. He supports patients in maintaining strong teeth and healthy gums between visits.</p>
                                 <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-google-plus"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -673,177 +673,3 @@
     </section>
 
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.556133073096!2d125.44236388644134!3d11.995616709159993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3309130f0495af71%3A0x78fd50ec1e2ded7d!2sEastern%20Samar%20State%20University%20-%20Can-Avid%20Campus!5e0!3m2!1sen!2sph!4v1748681840619!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-3">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">DentalCare+</h2>
-                        <p>Your trusted partner for compassionate and expert dental care, committed to your healthy smile.</p>
-                    </div>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-                        <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">Quick Links</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="javascript:void(0)" class="py-2 d-block">Home</a></li>
-                            <li><a href="javascript:void(0)" class="py-2 d-block">Our Services</a></li>
-                            <li><a href="javascript:void(0)" class="py-2 d-block">Patient Reviews</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Office</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">Can-avid, Eastern Samar, Philippines</span></li>
-                                <li><a href="tel:+639123456789"><span class="icon icon-phone"></span><span class="text">+63 912 345 6789</span></a></li>
-                                <li><a href="mailto:dentalcareplus@gmail.com"><span class="icon icon-envelope"></span><span class="text">dentalcareplus@gmail.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        Copyright &copy;
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        All rights reserved.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div id="ftco-loader" class="show fullscreen">
-        <svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
-        </svg>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadow-sm border-0 rounded">
-                <div class="modal-header bg-light border-0">
-                    <h5 class="modal-title font-weight-bold" id="loginModalLabel">Welcome Back</h5>
-                    <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="javascript:void(0)" id="loginForm">
-                    <div class="modal-body px-4">
-                        <div class="alert alert-danger text-center d-none" id="loginError">Invalid email or password</div>
-                        <div class="form-group">
-                            <label for="loginEmail" class="font-weight-bold mb-0">Email</label>
-                            <input type="email" class="form-control rounded-pill" id="loginEmail" placeholder="Enter your email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword" class="font-weight-bold mb-0">Password</label>
-                            <input type="password" class="form-control rounded-pill" id="loginPassword" placeholder="Enter your password" required>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0 d-flex flex-column align-items-center gap-2">
-                        <button type="submit" class="btn btn-success w-100 rounded-pill py-2 mb-2">Login</button>
-
-                        <div class="text-center w-100 mb-0">
-                            <small>Don't have an account?
-                                <a href="#" id="showRegister">Register here</a>
-                            </small>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadow-sm border-0 rounded">
-                <div class="modal-header bg-light border-0">
-                    <h5 class="modal-title font-weight-bold" id="registerModalLabel">Create an Account</h5>
-                    <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="javascript:void(0)" id="registerForm">
-                    <div class="modal-body px-4">
-                        <div class="alert alert-danger text-center d-none" id="registerError">Please correct the errors below</div>
-                        <div class="form-group">
-                            <label for="registerName" class="font-weight-bold mb-0">Full Name</label>
-                            <input type="text" class="form-control rounded-pill" id="registerName" placeholder="Enter your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerEmail" class="font-weight-bold mb-0">Email</label>
-                            <input type="email" class="form-control rounded-pill" id="registerEmail" placeholder="Enter your email" required>
-                            <small class="text-danger d-none" id="errorRegisterEmail">Email already exists.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerPassword" class="font-weight-bold mb-0">Password</label>
-                            <input type="password" class="form-control rounded-pill" id="registerPassword" placeholder="Create a password" required>
-                            <small class="text-danger d-none" id="errorRegisterPassword">Minimum 8 characters with letters, numbers & special characters.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword" class="font-weight-bold mb-0">Confirm Password</label>
-                            <input type="password" class="form-control rounded-pill" id="confirmPassword" placeholder="Confirm password" required>
-                            <small class="text-danger d-none" id="errorConfirmPassword">Passwords do not match.</small>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0 d-flex flex-column align-items-center gap-2 w-100">
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 mb-2">Register</button>
-
-                        <div class="text-center w-100 mb-0">
-                            <small>Already have an account?
-                                <a href="#" id="showLogin">Login here</a>
-                            </small>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const notification = <?php echo json_encode(session()->getFlashdata()); ?>;
-        const user = <?php echo json_encode(session()->get("user")); ?>;
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="public/dist/landing/js/jquery.min.js"></script>
-    <script src="public/dist/landing/js/jquery-migrate-3.0.1.min.js?v=1.0"></script>
-    <script src="public/dist/landing/js/popper.min.js"></script>
-    <script src="public/dist/landing/js/bootstrap.min.js"></script>
-    <script src="public/dist/landing/js/jquery.easing.1.3.js"></script>
-    <script src="public/dist/landing/js/jquery.waypoints.min.js"></script>
-    <script src="public/dist/landing/js/jquery.stellar.min.js"></script>
-    <script src="public/dist/landing/js/owl.carousel.min.js"></script>
-    <script src="public/dist/landing/js/jquery.magnific-popup.min.js"></script>
-    <script src="public/dist/landing/js/jquery.animateNumber.min.js"></script>
-    <script src="public/dist/landing/js/bootstrap-datepicker.js"></script>
-    <script src="public/dist/landing/js/jquery.timepicker.min.js"></script>
-    <script src="public/dist/landing/js/scrollax.min.js"></script>
-    <script src="public/dist/landing/js/main.js?v=1.2"></script>
-    <script src="public/dist/landing/js/script.js?v=1.2"></script>
-</body>
-
-</html>

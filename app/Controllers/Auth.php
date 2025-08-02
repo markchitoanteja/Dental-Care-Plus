@@ -36,11 +36,14 @@ class Auth extends BaseController
                 "user_type" => $user["user_type"],
             ]);
 
-            // Handle Remember Me
             if ($remember) {
-                // set session
-            }else{
-                // clear session
+                session()->set("remember_me", true);
+                session()->set("login_email", $email);
+                session()->set("login_password", $password);
+            } else {
+                session()->remove("remember_me");
+                session()->remove("login_email");
+                session()->remove("login_password");
             }
         }
 
