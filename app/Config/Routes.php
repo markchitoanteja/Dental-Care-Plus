@@ -18,8 +18,11 @@ $routes->get('/admin/dashboard', 'Admin::index');
 // Client routes
 $routes->get('/client/dashboard', 'Client::dashboard');
 $routes->get('/client/profile', 'Client::profile');
+$routes->get('/client/appointments', 'Client::appointments');
+
 $routes->post('/client/update_profile', 'Client::update_profile');
 $routes->post('/client/change_password', 'Client::change_password');
+$routes->post('/client/appointments/delete/(:num)', 'Client::delete_appointment/$1');
 
 // Auth routes
 $routes->post('/login', 'Auth::login');

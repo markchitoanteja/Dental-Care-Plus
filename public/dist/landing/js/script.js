@@ -431,10 +431,40 @@ $(document).ready(function () {
         });
     });
 
-    // Clear errors as user types in any password field
     $("#profile_current_password, #profile_new_password, #profile_confirm_password").on("input", function () {
         $(this).removeClass('is-invalid');
         $(this).next('.text-danger').remove(); // Remove only the one next to the current input
+    });
+
+    $(document).on("click", ".btn-delete-appointment", function () {
+        const appointmentId = $(this).data("id");
+
+        Swal.fire({
+            title: "Cancel Appointment?",
+            text: "This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",          // red confirm button
+            cancelButtonColor: "#6c757d",         // grey cancel button
+            confirmButtonText: "Yes, cancel it!"  // 👈 user clicks this to proceed with deletion
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: base_url + 'client/appointments/delete/' + appointmentId,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        }
+                    },
+                    error: function (_, _, error) {
+                        console.error(error);
+                        Swal.fire("Error", "An unexpected error occurred.", "error");
+                    }
+                });
+            }
+        });
     });
 
     function is_form_loading(form_id, set = false) {

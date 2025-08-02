@@ -67,20 +67,20 @@
                                 <a class="dropdown-item <?= session()->get('current_page') === 'appointments' ? 'active' : '' ?>" href="<?= base_url('client/appointments') ?>">
                                     <i class="fas fa-calendar-check mr-2"></i> Appointments
                                 </a>
-                                <a class="dropdown-item <?= session()->get('current_page') === 'packages' ? 'active' : '' ?>" href="<?= base_url('client/packages') ?>">
+                                <!-- <a class="dropdown-item <?= session()->get('current_page') === 'packages' ? 'active' : '' ?>" href="<?= base_url('client/packages') ?>">
                                     <i class="fas fa-box mr-2"></i> Packages
                                 </a>
                                 <a class="dropdown-item <?= session()->get('current_page') === 'billing' ? 'active' : '' ?>" href="<?= base_url('client/billing') ?>">
                                     <i class="fas fa-receipt mr-2"></i> Billing
-                                </a>
+                                </a> -->
 
-                                <div class="dropdown-divider"></div>
+                                <!-- <div class="dropdown-divider"></div> -->
 
                                 <!-- Communication -->
-                                <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
+                                <!-- <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
-                                    <span class="badge bg-danger text-white">3</span> <!-- Example unread badge -->
-                                </a>
+                                    <span class="badge bg-danger text-white">3</span>
+                                </a> -->
 
                                 <div class="dropdown-divider"></div>
 

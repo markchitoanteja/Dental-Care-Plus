@@ -71,8 +71,8 @@ class Client extends BaseController
         if ($redirect) return $redirect;
 
         session()->set('current_page', 'profile');
-        session()->set('page_title', 'My Profile');
-        session()->set('page_description', 'Your Personal Details');
+        session()->set('page_title', 'Profile');
+        session()->set('page_description', 'Personal Details');
 
         $user = session()->get('user');
         $userId = $user['id'];
@@ -265,6 +265,83 @@ class Client extends BaseController
         return $this->response->setJSON([
             'success' => true,
             'message' => 'Password changed successfully.',
+        ]);
+    }
+
+    public function appointments()
+    {
+        // Restrict access
+        $redirect = $this->redirectIfNotClient();
+        if ($redirect) return $redirect;
+
+        session()->set('current_page', 'appointments');
+        session()->set('page_title', 'Appointments');
+        session()->set('page_description', 'Appointment History & Status');
+
+        $Appointment_Model = new Appointment_Model();
+        $user = session()->get('user');
+        $client_id = $user['id'];
+
+        // Fetch appointments for the logged-in client
+        $appointments = $Appointment_Model
+            ->where('client_id', $client_id)
+            ->orderBy('appointment_date', 'DESC')
+            ->findAll();
+
+        return view("landing/layouts/header") .
+            view("client/appointments", [
+                'appointments' => $appointments,
+            ]) .
+            view("landing/layouts/footer");
+    }
+
+    public function delete_appointment($id = null)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'success' => false,
+                'message' => 'Invalid request.',
+            ]);
+        }
+
+        $user = session()->get('user');
+        if (!$user || $user['user_type'] !== 'user') {
+            return $this->response->setStatusCode(403)->setJSON([
+                'success' => false,
+                'message' => 'Unauthorized.',
+            ]);
+        }
+
+        $Appointment_Model = new Appointment_Model();
+        $appointment = $Appointment_Model->find($id);
+
+        if (!$appointment || $appointment['client_id'] != $user['id']) {
+            return $this->response->setStatusCode(404)->setJSON([
+                'success' => false,
+                'message' => 'Appointment not found.',
+            ]);
+        }
+
+        // Check if appointment is still upcoming
+        $appointmentDateTime = strtotime($appointment['appointment_date'] . ' ' . $appointment['appointment_time']);
+        if ($appointmentDateTime <= time()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Only upcoming appointments can be canceled.',
+            ]);
+        }
+
+        $Appointment_Model->delete($id);
+
+        // 🔔 Set flashdata for success
+        session()->setFlashdata([
+            'type'    => 'success',
+            'message' => 'Appointment canceled successfully.',
+        ]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Appointment canceled successfully.',
         ]);
     }
 }
