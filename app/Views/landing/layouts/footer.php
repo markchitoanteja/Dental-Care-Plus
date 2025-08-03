@@ -147,6 +147,53 @@
             </div>
         </div>
 
+        <!-- Package Booking Modal -->
+        <div class="modal fade" id="bookPackageModal" tabindex="-1" role="dialog" aria-labelledby="bookPackageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content shadow-sm border-0 rounded">
+                    <div class="modal-header bg-light border-0">
+                        <h5 class="modal-title font-weight-bold" id="bookPackageModalLabel">Book Package</h5>
+                        <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form action="javascript:void(0)" id="bookPackageForm">
+                        <div class="modal-body px-4">
+                            <input type="hidden" id="package_id" name="package_id">
+
+                            <div class="form-group">
+                                <label for="package_name" class="font-weight-bold mb-0">Package Name</label>
+                                <input type="text" class="form-control rounded-pill" id="package_name" name="package_name" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="appointment_date" class="font-weight-bold mb-0">Preferred Date</label>
+                                <input type="date" class="form-control rounded-pill" id="appointment_date" name="appointment_date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="appointment_time" class="font-weight-bold mb-0">Preferred Time</label>
+                                <input type="time" class="form-control rounded-pill" id="appointment_time" name="appointment_time" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact_number" class="font-weight-bold mb-0">Contact Number</label>
+                                <input type="text" class="form-control rounded-pill" id="contact_number" name="contact_number" placeholder="e.g. 09123456789" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer border-0 d-flex flex-column align-items-center gap-2">
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 mb-2">Confirm Booking</button>
+                            <div class="text-center w-100 mb-0">
+                                <small>Payment will be made at the clinic on the day of your visit.</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <script>
             const current_page = "<?= session()->get('current_page') ?>";
             const base_url = "<?= base_url() ?>";
@@ -169,8 +216,8 @@
         <script src="<?= base_url("public/dist/landing/js/bootstrap-datepicker.js") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/jquery.timepicker.min.js") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/scrollax.min.js") ?>"></script>
-        <script src="<?= base_url("public/dist/landing/js/main.js?v=1.2") ?>"></script>
-        <script src="<?= base_url("public/dist/landing/js/script.js?v=1.7") ?>"></script>
+        <script src="<?= base_url("public/dist/landing/js/main.js?v=1.3") ?>"></script>
+        <script src="<?= base_url("public/dist/landing/js/script.js?v=2.3") ?>"></script>
     </body>
 
 </html>

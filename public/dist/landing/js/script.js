@@ -111,7 +111,7 @@ $(document).ready(function () {
         formData.append('phone', phone);
 
         $.ajax({
-            url: base_url + 'appointments/store',
+            url: base_url + 'client/add_appointment',
             data: formData,
             type: 'POST',
             dataType: 'JSON',
@@ -463,6 +463,137 @@ $(document).ready(function () {
                         Swal.fire("Error", "An unexpected error occurred.", "error");
                     }
                 });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-book-package', function () {
+        if (!user) {
+            return Swal.fire({
+                title: 'Login Required',
+                text: 'Please log in or create an account to book a package.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            const packageId = $(this).data('id');
+            const packageName = $(this).data('name');
+
+            $('#package_id').val(packageId);
+            $('#package_name').val(packageName);
+            $('#bookPackageModal').modal('show');
+        }
+    });
+
+    $('#bookPackageForm').on('submit', function (e) {
+        e.preventDefault();
+
+        if (!user) {
+            return Swal.fire({
+                title: 'Login Required',
+                text: 'Please log in or create an account to book a package.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        const formId = 'bookPackageForm';
+
+        const package_id = $('#package_id').val();
+        const package_name = $('#package_name').val();
+        const dateStr = $('#appointment_date').val().trim();
+        const timeStr = $('#appointment_time').val().trim();
+        const phone = $('#contact_number').val().trim();
+
+        const phoneRegex = /^\+?\d{7,15}$/;
+        const timeFormatRegex = /^\d{1,2}:\d{2}(?:\s?[APMapm]{2})?$/;
+
+        if (!dateStr) {
+            return Swal.fire('Validation Error', 'Choose a date.', 'warning');
+        }
+        if (!timeStr || !timeFormatRegex.test(timeStr)) {
+            return Swal.fire('Validation Error', 'Enter a valid time (e.g. 10:00 AM).', 'warning');
+        }
+        if (!phone || !phoneRegex.test(phone)) {
+            return Swal.fire('Validation Error', 'Enter a valid phone number.', 'warning');
+        }
+
+        const dateObj = new Date(dateStr);
+        const today = new Date();
+        const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+        if (dateObj < tomorrow) {
+            return Swal.fire('Invalid Date', 'Bookings must be scheduled at least one day in advance.', 'warning');
+        }
+
+        // Normalize time to 24-hour format
+        let time = timeStr.trim().toUpperCase();
+        if (time.includes('AM') || time.includes('PM')) {
+            let [h, m] = time.replace(/AM|PM/i, '').trim().split(':');
+            h = parseInt(h);
+            m = parseInt(m);
+            if (time.includes('PM') && h !== 12) h += 12;
+            if (time.includes('AM') && h === 12) h = 0;
+            time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+
+        const [hourStr, minuteStr] = time.split(':');
+        const hour = parseInt(hourStr);
+        const minute = parseInt(minuteStr);
+        const totalMinutes = hour * 60 + minute;
+
+        const weekday = dateObj.getDay();
+        let openMin = 0, closeMin = 0;
+
+        if (weekday >= 1 && weekday <= 5) { // Monday–Friday
+            openMin = 8 * 60;
+            closeMin = 19 * 60;
+        } else if (weekday === 6) { // Saturday
+            openMin = 10 * 60;
+            closeMin = 17 * 60;
+        } else if (weekday === 0) { // Sunday
+            openMin = 10 * 60;
+            closeMin = 16 * 60;
+        }
+
+        if (totalMinutes < openMin || totalMinutes > closeMin) {
+            return Swal.fire('Invalid Time', 'Selected time is outside working hours.', 'warning');
+        }
+
+        is_form_loading(formId, true);
+
+        const client_id = user.id || '';
+
+        const formattedDate = `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getDate().toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+        let ampmHour = hour % 12 || 12;
+        let ampm = hour >= 12 ? 'pm' : 'am';
+        
+        const formattedTime = `${ampmHour.toString().padStart(2, '0')}:${minuteStr}${ampm}`;
+
+        const formData = new FormData();
+
+        formData.append('service', package_name);
+        formData.append('client_id', client_id);
+        formData.append('appointment_date', formattedDate);
+        formData.append('appointment_time', formattedTime);
+
+        formData.append('phone', phone);
+
+        $.ajax({
+            url: base_url + 'client/add_appointment',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    location.reload();
+                }
+            },
+            error: function (_, _, error) {
+                console.error(error);
+                displayPopupMessage("Something went wrong. Try again.", "error");
             }
         });
     });

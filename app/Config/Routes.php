@@ -19,9 +19,11 @@ $routes->get('/admin/dashboard', 'Admin::index');
 $routes->get('/client/dashboard', 'Client::dashboard');
 $routes->get('/client/profile', 'Client::profile');
 $routes->get('/client/appointments', 'Client::appointments');
+$routes->get('/client/messages', 'Client::messages');
 
 $routes->post('/client/update_profile', 'Client::update_profile');
 $routes->post('/client/change_password', 'Client::change_password');
+$routes->post('/client/add_appointment', 'Client::add_appointment');
 $routes->post('/client/appointments/delete/(:num)', 'Client::delete_appointment/$1');
 
 // Auth routes
@@ -29,6 +31,3 @@ $routes->post('/login', 'Auth::login');
 $routes->post('/register', 'Auth::register');
 $routes->post('/update_profile', 'Auth::update_profile');
 $routes->post('/logout', 'Auth::logout');
-
-// Appointment routes
-$routes->post('/appointments/store', 'Appointments::store');

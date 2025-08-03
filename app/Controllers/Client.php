@@ -295,6 +295,39 @@ class Client extends BaseController
             view("landing/layouts/footer");
     }
 
+    public function add_appointment()
+    {
+        $Appointment_Model = new Appointment_Model();
+
+        $data = [
+            'client_id' => $this->request->getPost("client_id"),
+            'service' => $this->request->getPost("service"),
+            'appointment_date' => $this->request->getPost("appointment_date"),
+            'appointment_time' => $this->request->getPost("appointment_time"),
+            'phone' => $this->request->getPost("phone"),
+        ];
+
+        $success = false;
+        $error_type = null;
+
+        if ($Appointment_Model->insert($data)) {
+            $success = true;
+
+            session()->setFlashdata([
+                "type" => "success",
+                "message" => "Appointment created successfully!",
+            ]);
+        } else {
+            $success = false;
+            $error_type = "db_error";
+        }
+
+        return $this->response->setJSON([
+            "success" => $success,
+            "error_type" => $error_type
+        ]);
+    }
+
     public function delete_appointment($id = null)
     {
         if (!$this->request->isAJAX()) {
@@ -343,5 +376,33 @@ class Client extends BaseController
             'success' => true,
             'message' => 'Appointment canceled successfully.',
         ]);
+    }
+
+    public function messages()
+    {
+        $redirect = $this->redirectIfNotClient();
+        if ($redirect) return $redirect;
+
+        session()->set('current_page', 'messages');
+        session()->set('page_title', 'Messages');
+        session()->set('page_description', 'Messages Inbox');
+
+        // Simulated messages
+        $messages = [
+            ['subject' => 'Appointment Confirmation', 'received_at' => '2025-08-01 09:15:00', 'unread' => true],
+            ['subject' => 'Follow‑up Reminder',       'received_at' => '2025-08-03 14:22:00', 'unread' => true],
+            ['subject' => 'New Promo Offer',          'received_at' => '2025-08-05 11:00:00', 'unread' => true],
+            ['subject' => 'Clinic Update Notice',     'received_at' => '2025-08-10 08:30:00', 'unread' => false],
+            ['subject' => 'Your Feedback Received',   'received_at' => '2025-08-12 16:45:00', 'unread' => false],
+            ['subject' => 'Service Tips',             'received_at' => '2025-08-14 10:00:00', 'unread' => false],
+            ['subject' => 'Health Package Renewal',   'received_at' => '2025-08-16 13:15:00', 'unread' => false],
+        ];
+
+        $unreadCount = count(array_filter($messages, fn($m) => $m['unread']));
+        $readCount   = count($messages) - $unreadCount;
+
+        return view("landing/layouts/header")
+            . view("client/messages", compact('messages', 'unreadCount', 'readCount'))
+            . view("landing/layouts/footer");
     }
 }

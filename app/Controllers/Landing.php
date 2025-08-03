@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Package_Model;
+
 class Landing extends BaseController
 {
     public function index()
@@ -9,12 +11,15 @@ class Landing extends BaseController
         session()->set('current_page', 'home');
         session()->set('page_title', 'Trusted Dental Services in Can-avid, Eastern Samar');
 
-        $body = view("landing/home");
+        $Package_Model = new Package_Model();
+
+        $data['packages'] = $Package_Model->findAll();
+
+        $body = view("landing/home", $data);
         $footer = view("landing/layouts/footer");
 
         if (session()->has('user')) {
             $user = session()->get('user');
-
             if (isset($user['user_type']) && $user['user_type'] === 'user') {
                 return $body . $footer;
             } else {
@@ -24,7 +29,7 @@ class Landing extends BaseController
 
         return $body . $footer;
     }
-    
+
     public function home()
     {
         return redirect()->to(base_url());
@@ -52,15 +57,22 @@ class Landing extends BaseController
 
         return $header . $body . $footer;
     }
-    
+
     public function services()
     {
         session()->set('current_page', 'services');
         session()->set('page_title', 'Our Services');
         session()->set('page_description', 'Our Services Keep You Smiling');
 
+        $Package_Model = new \App\Models\Package_Model();
+        $packages = $Package_Model->orderBy('name', 'ASC')->findAll();
+
+        $data = [
+            'packages' => $packages
+        ];
+
         $header = view("landing/layouts/header");
-        $body = view("landing/services");
+        $body   = view("landing/services", $data);
         $footer = view("landing/layouts/footer");
 
         if (session()->has('user')) {

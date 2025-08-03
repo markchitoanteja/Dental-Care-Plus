@@ -53,38 +53,20 @@
                                 <span><?= session()->get("user")["name"] ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <!-- General -->
                                 <a class="dropdown-item" href="<?= base_url('client/dashboard') ?>">
                                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                                 </a>
                                 <a class="dropdown-item" href="<?= base_url('client/profile') ?>">
                                     <i class="fas fa-user mr-2"></i> Profile
                                 </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <!-- Services -->
                                 <a class="dropdown-item" href="<?= base_url('client/appointments') ?>">
                                     <i class="fas fa-calendar-check mr-2"></i> Appointments
                                 </a>
-                                <a class="dropdown-item" href="<?= base_url('client/packages') ?>">
-                                    <i class="fas fa-box mr-2"></i> Packages
-                                </a>
-                                <a class="dropdown-item" href="<?= base_url('client/billing') ?>">
-                                    <i class="fas fa-receipt mr-2"></i> Billing
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <!-- Communication -->
                                 <a class="dropdown-item d-flex justify-content-between align-items-center" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
-                                    <span class="badge bg-danger text-white">3</span> <!-- Example unread badge -->
+                                    <span class="badge bg-danger text-white">3</span>
                                 </a>
-
                                 <div class="dropdown-divider"></div>
-
-                                <!-- Action -->
                                 <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                 </a>
@@ -517,70 +499,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 ftco-animate">
-                    <div class="pricing-entry pb-5 text-center">
-                        <div>
-                            <h3 class="mb-4">Basic</h3>
-                            <p><span class="price">₱800</span> <span class="per">/ visit</span></p>
+                <?php foreach ($packages as $package): ?>
+                    <div class="col-md-3 ftco-animate">
+                        <div class="pricing-entry pb-5 text-center">
+                            <div>
+                                <h3 class="mb-4"><?= esc($package['name']) ?></h3>
+                                <p>
+                                    <span class="price">₱<?= number_format($package['price'], 0) ?></span>
+                                    <span class="per">/ <?= esc($package['unit']) ?></span>
+                                </p>
+                            </div>
+                            <ul>
+                                <?php foreach (explode("\n", $package['features']) as $feature): ?>
+                                    <li><?= esc($feature) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <p class="button text-center">
+                                <a href="javascript:void(0)"
+                                    class="btn btn-primary btn-outline-primary px-4 py-3 btn-book-package"
+                                    data-id="<?= $package['id'] ?>"
+                                    data-name="<?= esc($package['name']) ?> Package">
+                                    Book Now
+                                </a>
+                            </p>
                         </div>
-                        <ul>
-                            <li>Oral Examination</li>
-                            <li>Dental Cleaning</li>
-                            <li>Consultation</li>
-                            <li>Fluoride Application</li>
-                            <li>Dental Advice</li>
-                        </ul>
-                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
                     </div>
-                </div>
-                <div class="col-md-3 ftco-animate">
-                    <div class="pricing-entry pb-5 text-center">
-                        <div>
-                            <h3 class="mb-4">Standard</h3>
-                            <p><span class="price">₱1,500</span> <span class="per">/ visit</span></p>
-                        </div>
-                        <ul>
-                            <li>Basic Package Services</li>
-                            <li>Tooth Filling (1–2 teeth)</li>
-                            <li>X-ray Imaging</li>
-                            <li>Gum Care Evaluation</li>
-                            <li>Oral Hygiene Kit</li>
-                        </ul>
-                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
-                    </div>
-                </div>
-                <div class="col-md-3 ftco-animate">
-                    <div class="pricing-entry active pb-5 text-center">
-                        <div>
-                            <h3 class="mb-4">Premium</h3>
-                            <p><span class="price">₱3,200</span> <span class="per">/ session</span></p>
-                        </div>
-                        <ul>
-                            <li>Standard Package Services</li>
-                            <li>Tooth Extraction (simple)</li>
-                            <li>Teeth Whitening (1 session)</li>
-                            <li>Customized Treatment Plan</li>
-                            <li>Priority Scheduling</li>
-                        </ul>
-                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
-                    </div>
-                </div>
-                <div class="col-md-3 ftco-animate">
-                    <div class="pricing-entry pb-5 text-center">
-                        <div>
-                            <h3 class="mb-4">Platinum</h3>
-                            <p><span class="price">₱5,500</span> <span class="per">/ session</span></p>
-                        </div>
-                        <ul>
-                            <li>Premium Package Services</li>
-                            <li>Tooth Implants (initial consult)</li>
-                            <li>Advanced Whitening</li>
-                            <li>Restorative Consultation</li>
-                            <li>Follow-up Care Included</li>
-                        </ul>
-                        <p class="button text-center"><a href="javascript:void(0)" class="btn btn-primary btn-outline-primary px-4 py-3">Book Now</a></p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>

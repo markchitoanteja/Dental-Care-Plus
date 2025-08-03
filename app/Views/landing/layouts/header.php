@@ -53,38 +53,20 @@
                                 <span><?= session()->get("user")["name"] ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <!-- General -->
                                 <a class="dropdown-item <?= session()->get('current_page') === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('client/dashboard') ?>">
                                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                                 </a>
                                 <a class="dropdown-item <?= session()->get('current_page') === 'profile' ? 'active' : '' ?>" href="<?= base_url('client/profile') ?>">
                                     <i class="fas fa-user mr-2"></i> Profile
                                 </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <!-- Services -->
                                 <a class="dropdown-item <?= session()->get('current_page') === 'appointments' ? 'active' : '' ?>" href="<?= base_url('client/appointments') ?>">
                                     <i class="fas fa-calendar-check mr-2"></i> Appointments
                                 </a>
-                                <!-- <a class="dropdown-item <?= session()->get('current_page') === 'packages' ? 'active' : '' ?>" href="<?= base_url('client/packages') ?>">
-                                    <i class="fas fa-box mr-2"></i> Packages
-                                </a>
-                                <a class="dropdown-item <?= session()->get('current_page') === 'billing' ? 'active' : '' ?>" href="<?= base_url('client/billing') ?>">
-                                    <i class="fas fa-receipt mr-2"></i> Billing
-                                </a> -->
-
-                                <!-- <div class="dropdown-divider"></div> -->
-
-                                <!-- Communication -->
-                                <!-- <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
                                     <span class="badge bg-danger text-white">3</span>
-                                </a> -->
-
+                                </a>
                                 <div class="dropdown-divider"></div>
-
-                                <!-- Action -->
                                 <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                 </a>
@@ -99,7 +81,7 @@
     </nav>
 
     <section class="home-slider owl-carousel">
-        <div class="slider-item bread-item" style="background-image: url('<?=base_url("public/dist/landing/images/bg_1.jpg") ?>');" data-stellar-background-ratio="0.5">
+        <div class="slider-item bread-item" style="background-image: url('<?= base_url("public/dist/landing/images/bg_1.jpg") ?>');" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container" data-scrollax-parent="true">
                 <div class="row slider-text align-items-end">
