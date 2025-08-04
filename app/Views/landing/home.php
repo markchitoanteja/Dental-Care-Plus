@@ -53,18 +53,20 @@
                                 <span><?= session()->get("user")["name"] ?></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('client/dashboard') ?>">
+                                <a class="dropdown-item <?= session()->get('current_page') === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('client/dashboard') ?>">
                                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                                 </a>
-                                <a class="dropdown-item" href="<?= base_url('client/profile') ?>">
+                                <a class="dropdown-item <?= session()->get('current_page') === 'profile' ? 'active' : '' ?>" href="<?= base_url('client/profile') ?>">
                                     <i class="fas fa-user mr-2"></i> Profile
                                 </a>
-                                <a class="dropdown-item" href="<?= base_url('client/appointments') ?>">
+                                <a class="dropdown-item <?= session()->get('current_page') === 'appointments' ? 'active' : '' ?>" href="<?= base_url('client/appointments') ?>">
                                     <i class="fas fa-calendar-check mr-2"></i> Appointments
                                 </a>
-                                <a class="dropdown-item d-flex justify-content-between align-items-center" href="<?= base_url('client/messages') ?>">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
-                                    <span class="badge bg-danger text-white">3</span>
+                                    <span id="navUnreadBadge" class="badge bg-danger text-white" <?= $unreadCount > 0 ? '' : 'style="display:none;"' ?>>
+                                        <?= $unreadCount > 0 ? esc($unreadCount) : '' ?>
+                                    </span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">
@@ -80,6 +82,7 @@
         </div>
     </nav>
 
+    <!-- Slider -->
     <section class="home-slider owl-carousel" aria-label="DentalCare+ Main Slider">
         <!-- Slide 1 -->
         <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_1.jpg');" role="group" aria-roledescription="slide" aria-label="Easy Online Booking & Care Management">
@@ -142,6 +145,7 @@
         </div>
     </section>
 
+    <!-- Book Appointment (Single Service) -->
     <section class="ftco-intro" id="book_now_section">
         <div class="container">
             <div class="row no-gutters">
@@ -177,32 +181,13 @@
                                         <select class="form-control" <?= !session("user") ? "disabled" : "" ?>>
                                             <option value="" selected disabled class="text-dark">Select a Service</option>
 
-                                            <optgroup label="General Dentistry" class="text-dark">
-                                                <option value="Dental Consultation" class="text-dark">Dental Consultation</option>
-                                                <option value="Oral Prophylaxis (Teeth Cleaning)" class="text-dark">Oral Prophylaxis (Teeth Cleaning)</option>
-                                                <option value="Tooth Extraction" class="text-dark">Tooth Extraction</option>
-                                                <option value="Tooth Filling (Pasta)" class="text-dark">Tooth Filling (Pasta)</option>
-                                                <option value="Dental X-ray" class="text-dark">Dental X-ray</option>
-                                            </optgroup>
-
-                                            <optgroup label="Cosmetic Dentistry" class="text-dark">
-                                                <option value="Teeth Whitening" class="text-dark">Teeth Whitening</option>
-                                                <option value="Veneers" class="text-dark">Veneers</option>
-                                                <option value="Tooth Crown/Bridge" class="text-dark">Tooth Crown / Bridge</option>
-                                            </optgroup>
-
-                                            <optgroup label="Orthodontics" class="text-dark">
-                                                <option value="Braces Installation" class="text-dark">Braces Installation</option>
-                                                <option value="Retainer Fitting" class="text-dark">Retainer Fitting</option>
-                                            </optgroup>
-
-                                            <optgroup label="Specialty Services" class="text-dark">
-                                                <option value="Root Canal Treatment" class="text-dark">Root Canal Treatment</option>
-                                                <option value="Dentures (Full/Partial)" class="text-dark">Dentures (Full/Partial)</option>
-                                                <option value="Dental Implants" class="text-dark">Dental Implants</option>
-                                                <option value="Gum Treatment (Deep Cleaning)" class="text-dark">Gum Treatment (Deep Cleaning)</option>
-                                                <option value="Pediatric Dentistry (Kids)" class="text-dark">Pediatric Dentistry (Kids)</option>
-                                            </optgroup>
+                                            <?php foreach ($groupedServices as $category => $services): ?>
+                                                <optgroup label="<?= esc($category) ?>" class="text-dark">
+                                                    <?php foreach ($services as $service): ?>
+                                                        <option value="<?= esc($service) ?>" class="text-dark"><?= esc($service) ?></option>
+                                                    <?php endforeach; ?>
+                                                </optgroup>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -236,7 +221,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="icon"><span class="icon-phone2"></span></div>
-                                    <input type="text" class="form-control" id="phone" placeholder="Phone" <?= !session("user") ? "disabled" : "" ?>>
+                                    <input type="text" class="form-control" id="phone" placeholder="Phone" <?= !session("user") ? "disabled" : "readonly" ?> value="<?= esc($phone ?? '') ?>">
                                 </div>
                             </div>
                         </div>

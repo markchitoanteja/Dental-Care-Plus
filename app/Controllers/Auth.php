@@ -3,9 +3,54 @@
 namespace App\Controllers;
 
 use App\Models\User_Model;
+use App\Models\Message_Model;
 
 class Auth extends BaseController
 {
+    private function sendWelcomeMessages(int $userId): void
+    {
+        $Message_Model = new Message_Model();
+
+        $messages = [
+            [
+                'user_id' => $userId,
+                'subject' => '🎉 Welcome to Dental Care Plus!',
+                'content' => 'Thank you for joining our community! We’re excited to help you maintain a healthy smile.',
+                'is_read' => 0,
+                'is_deleted' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'user_id' => $userId,
+                'subject' => '📦 Explore Our Dental Packages',
+                'content' => 'Check out our affordable and comprehensive dental packages. Click here to explore: <a href="' . base_url("services") . '">View Services</a>',
+                'is_read' => 0,
+                'is_deleted' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'user_id' => $userId,
+                'subject' => '📝 Complete Your Profile',
+                'content' => 'To get the best experience, please complete your profile. <a href="' . base_url("client/profile") . '">Update Profile</a>',
+                'is_read' => 0,
+                'is_deleted' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'user_id' => $userId,
+                'subject' => '📅 Book an Appointment Anytime',
+                'content' => 'Easily schedule a visit with us at your convenience. Visit the appointments section anytime!',
+                'is_read' => 0,
+                'is_deleted' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ],
+        ];
+
+        foreach ($messages as $msg) {
+            $Message_Model->insert($msg);
+        }
+    }
+
     public function login()
     {
         $email = $this->request->getPost("email");
@@ -83,12 +128,24 @@ class Auth extends BaseController
             if ($User_Model->insert($data)) {
                 $success = true;
 
+                $newUserId = $User_Model->getInsertID();
+                $this->sendWelcomeMessages($newUserId);
+
+                // Auto-login
+                $user = $User_Model->find($newUserId);
+                session()->set("user", [
+                    "id" => $user["id"],
+                    "name" => $user["name"],
+                    "email" => $user["email"],
+                    "image" => $user["image"],
+                    "user_type" => $user["user_type"],
+                ]);
+
                 session()->setFlashdata([
                     "type" => "success",
-                    "message" => "Account created successfully! You can now log in.",
+                    "message" => "Welcome, $name!",
                 ]);
             } else {
-                $success = false;
                 $error_type = "db_error";
             }
         }

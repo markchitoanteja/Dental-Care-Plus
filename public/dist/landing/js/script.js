@@ -567,7 +567,7 @@ $(document).ready(function () {
         const formattedDate = `${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getDate().toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
         let ampmHour = hour % 12 || 12;
         let ampm = hour >= 12 ? 'pm' : 'am';
-        
+
         const formattedTime = `${ampmHour.toString().padStart(2, '0')}:${minuteStr}${ampm}`;
 
         const formData = new FormData();
@@ -594,6 +594,98 @@ $(document).ready(function () {
             error: function (_, _, error) {
                 console.error(error);
                 displayPopupMessage("Something went wrong. Try again.", "error");
+            }
+        });
+    });
+
+    $('.view-message-btn').on('click', function () {
+        const id = $(this).data('id');
+        const subject = $(this).data('subject');
+        const content = $(this).data('content');
+        const date = $(this).data('date');
+
+        const loadingHTML = '<div class="d-flex align-items-center text-secondary"><span class="spinner-border spinner-border-sm mr-2"></span> Loading...</div>';
+
+        // Show loading indicators
+        $('#messageSubject').html(loadingHTML);
+        $('#messageContent').html(loadingHTML);
+        $('#messageDate').html(loadingHTML);
+
+        // Send AJAX request to mark as read
+        $.ajax({
+            url: base_url + '/client/messages/mark-read',
+            type: 'POST',
+            data: { id },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function () {
+                // Delay rendering actual message content for smoother UX
+                setTimeout(function () {
+                    console.log(content);
+
+                    $('#messageSubject').text(subject);
+                    $('#messageContent').html(content);
+                    $('#messageDate').html('Received on ' + date);
+
+                    // Remove bold styling from message row
+                    $(`.message-row[data-id="${id}"]`).removeClass('font-weight-bold');
+
+                    // Update counters
+                    const unreadElement = $('#unreadMessages');
+                    const readElement = $('#readMessages');
+                    const navBadge = $('#navUnreadBadge');
+
+                    let unread = parseInt(unreadElement.text());
+                    let read = parseInt(readElement.text());
+
+                    if (unread > 0) {
+                        unread--;
+                        read++;
+                        unreadElement.text(unread);
+                        readElement.text(read);
+
+                        // Update navbar badge
+                        if (unread > 0) {
+                            navBadge.text(unread);
+                        } else {
+                            navBadge.text('').hide(); // hide if 0
+                        }
+                    }
+                }, 300);
+            }
+        });
+    });
+
+    $(document).on("click", ".delete-message-btn", function () {
+        const messageId = $(this).data("id");
+
+        Swal.fire({
+            title: "Delete Message?",
+            text: "This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",          // red confirm button
+            cancelButtonColor: "#6c757d",        // grey cancel button
+            confirmButtonText: "Yes, delete it!" // match your wording style
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: base_url + 'client/messages/delete/' + messageId,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            Swal.fire("Error", response.message || "Failed to delete message.", "error");
+                        }
+                    },
+                    error: function (_, _, error) {
+                        console.error(error);
+                        Swal.fire("Error", "An unexpected error occurred.", "error");
+                    }
+                });
             }
         });
     });

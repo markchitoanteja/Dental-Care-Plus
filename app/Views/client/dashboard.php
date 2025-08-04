@@ -14,7 +14,7 @@
         <h2 class="mb-5 font-weight-bold text-center">Client Dashboard</h2>
 
         <!-- Analytics Cards -->
-        <div class="row text-center mb-5">
+        <div class="row text-center mb-5 justify-content-center">
 
             <!-- Total Appointments -->
             <div class="col-md-4 col-sm-6 mb-4">
@@ -31,31 +31,16 @@
                 </div>
             </div>
 
-            <!-- Total Billing -->
+            <!-- Total Messages -->
             <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm border-left border-success border-4 h-100">
+                <div class="card shadow-sm border-left border-warning border-4 h-100">
                     <div class="card-body py-4">
                         <div class="mb-3">
-                            <i class="fas fa-dollar-sign fa-3x text-success"></i>
+                            <i class="fas fa-envelope fa-3x text-warning"></i>
                         </div>
-                        <h6 class="text-muted">Total Billing</h6>
+                        <h6 class="text-muted">Total Messages</h6>
                         <h3 class="font-weight-bold mb-0">
-                            ₱0.00 <!-- Replace with dynamic billing later -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Active Packages -->
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm border-left border-info border-4 h-100">
-                    <div class="card-body py-4">
-                        <div class="mb-3">
-                            <i class="fas fa-box-open fa-3x text-info"></i>
-                        </div>
-                        <h6 class="text-muted">Active Packages</h6>
-                        <h3 class="font-weight-bold mb-0">
-                            0 <!-- Replace with dynamic packages later -->
+                            <?= esc($messageCount ?? 0) ?>
                         </h3>
                     </div>
                 </div>

@@ -194,6 +194,54 @@
             </div>
         </div>
 
+        <!-- View Message Modal -->
+        <div class="modal fade" id="viewMessageModal" tabindex="-1" role="dialog" aria-labelledby="viewMessageLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content shadow-sm border-0 rounded">
+
+                    <!-- Header -->
+                    <div class="modal-header bg-light border-0">
+                        <h5 class="modal-title font-weight-bold mb-0" id="viewMessageLabel">
+                            <i class="fas fa-envelope-open-text text-primary mr-2"></i>Message Details
+                        </h5>
+                        <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 1.4rem;">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="modal-body px-4 pt-4 pb-3">
+                        <!-- Subject and Date -->
+                        <div class="mb-4">
+                            <h5 id="messageSubject" class="text-dark font-weight-bold mb-1"></h5>
+                            <small class="text-muted d-block">
+                                <i class="fas fa-calendar-alt mr-1"></i>
+                                <span id="messageDate"></span>
+                            </small>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Content -->
+                        <div class="mb-2">
+                            <label class="text-muted font-weight-bold small mb-1">Message</label>
+                            <div class="border rounded p-3 bg-light" style="min-height: 120px;">
+                                <div id="messageContent" class="text-dark" style="white-space: pre-line; line-height: 1.7;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer border-0 px-4 pb-4 pt-0 d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <script>
             const current_page = "<?= session()->get('current_page') ?>";
             const base_url = "<?= base_url() ?>";
@@ -217,7 +265,7 @@
         <script src="<?= base_url("public/dist/landing/js/jquery.timepicker.min.js") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/scrollax.min.js") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/main.js?v=1.3") ?>"></script>
-        <script src="<?= base_url("public/dist/landing/js/script.js?v=2.3") ?>"></script>
-    </body>
+        <script src="<?= base_url("public/dist/landing/js/script.js?v=2.9") ?>"></script>
+        </body>
 
-</html>
+        </html>

@@ -64,7 +64,9 @@
                                 </a>
                                 <a class="dropdown-item d-flex justify-content-between align-items-center <?= session()->get('current_page') === 'messages' ? 'active' : '' ?>" href="<?= base_url('client/messages') ?>">
                                     <div><i class="fas fa-envelope mr-2"></i> Messages</div>
-                                    <span class="badge bg-danger text-white">3</span>
+                                    <span id="navUnreadBadge" class="badge bg-danger text-white" <?= $unreadCount > 0 ? '' : 'style="display:none;"' ?>>
+                                        <?= $unreadCount > 0 ? esc($unreadCount) : '' ?>
+                                    </span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="javascript:void(0)" id="logoutBtn">

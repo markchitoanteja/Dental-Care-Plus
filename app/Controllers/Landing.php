@@ -2,32 +2,74 @@
 
 namespace App\Controllers;
 
+use App\Models\Profile_Model;
 use App\Models\Package_Model;
+use App\Models\Services_Model;
 
 class Landing extends BaseController
 {
+    protected function getUnreadCount(): int
+    {
+        if (!session()->has('user')) {
+            return 0;
+        }
+
+        $user = session()->get('user');
+
+        if ($user['user_type'] !== 'user') {
+            return 0;
+        }
+
+        $Message_Model = new \App\Models\Message_Model();
+        return $Message_Model
+            ->where('user_id', $user['id'])
+            ->where('is_read', 0)
+            ->countAllResults();
+    }
+
     public function index()
     {
         session()->set('current_page', 'home');
         session()->set('page_title', 'Trusted Dental Services in Can-avid, Eastern Samar');
 
         $Package_Model = new Package_Model();
+        $Services_Model = new Services_Model();
+        $Profile_Model = new Profile_Model();
 
         $data['packages'] = $Package_Model->findAll();
 
-        $body = view("landing/home", $data);
-        $footer = view("landing/layouts/footer");
+        // Group services by category
+        $services = $Services_Model->orderBy('category', 'ASC')->orderBy('name', 'ASC')->findAll();
+        $groupedServices = [];
+        foreach ($services as $service) {
+            $groupedServices[$service['category']][] = $service['name'];
+        }
+        $data['groupedServices'] = $groupedServices;
+
+        // Default phone/unread count
+        $data['phone'] = '';
+        $data['unreadCount'] = 0;
 
         if (session()->has('user')) {
-            $user = session()->get('user');
-            if (isset($user['user_type']) && $user['user_type'] === 'user') {
-                return $body . $footer;
-            } else {
-                return redirect()->to(base_url('admin/dashboard'));
+            $user = session('user');
+
+            if ($user['user_type'] === 'user') {
+                $data['unreadCount'] = $this->getUnreadCount(); // Only for regular clients
+
+                $profile = $Profile_Model->where('user_id', $user['id'])->first();
+                $data['phone'] = $profile['phone'] ?? '';
+
+                return view("landing/home", $data)
+                    . view("landing/layouts/footer");
             }
+
+            // If not a regular client, redirect to admin
+            return redirect()->to(base_url('admin/dashboard'));
         }
 
-        return $body . $footer;
+        // Guest user: no unread count
+        return view("landing/home", $data)
+            . view("landing/layouts/footer");
     }
 
     public function home()
@@ -41,7 +83,8 @@ class Landing extends BaseController
         session()->set('page_title', 'About Us');
         session()->set('page_description', 'Learn More About Us');
 
-        $header = view("landing/layouts/header");
+        $unreadCount = $this->getUnreadCount();
+        $header = view("landing/layouts/header", ['unreadCount' => $unreadCount]);
         $body = view("landing/about_us");
         $footer = view("landing/layouts/footer");
 
@@ -71,7 +114,8 @@ class Landing extends BaseController
             'packages' => $packages
         ];
 
-        $header = view("landing/layouts/header");
+        $unreadCount = $this->getUnreadCount();
+        $header = view("landing/layouts/header", ['unreadCount' => $unreadCount]);
         $body   = view("landing/services", $data);
         $footer = view("landing/layouts/footer");
 
@@ -94,7 +138,8 @@ class Landing extends BaseController
         session()->set('page_title', 'Contact Us');
         session()->set('page_description', 'Get in Touch with Us');
 
-        $header = view("landing/layouts/header");
+        $unreadCount = $this->getUnreadCount();
+        $header = view("landing/layouts/header", ['unreadCount' => $unreadCount]);
         $body = view("landing/contact_us");
         $footer = view("landing/layouts/footer");
 

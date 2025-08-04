@@ -5,90 +5,151 @@ namespace App\Controllers;
 use App\Models\Appointment_Model;
 use App\Models\Profile_Model;
 use App\Models\User_Model;
+use App\Models\Message_Model;
 
 class Client extends BaseController
 {
     private function redirectIfNotClient()
     {
         $user = session()->get('user');
-
-        // Case 1: User not logged in
         if (!$user) {
-            session()->setFlashdata([
-                'type' => 'error',
-                'message' => 'You must be logged in to access this page.',
-            ]);
-            return redirect()->to(base_url('/')); // Redirect to homepage
+            session()->setFlashdata(['type' => 'error', 'message' => 'You must be logged in to access this page.']);
+            return redirect()->to(base_url('/'));
         }
-
-        // Case 2: Logged in but not a regular client
-        if (!isset($user['user_type']) || $user['user_type'] !== 'user') {
-            session()->setFlashdata([
-                'type' => 'error',
-                'message' => 'You do not have permission to access this page.',
-            ]);
-
-            // You may redirect to admin dashboard or back to previous page
+        if ($user['user_type'] !== 'user') {
+            session()->setFlashdata(['type' => 'error', 'message' => 'You do not have permission to access this page.']);
             return redirect()->to(base_url('admin/dashboard'));
         }
+        return null;
+    }
 
-        return null; // Access granted
+    private function getUnreadCount(): int
+    {
+        if (!session()->has('user') || session('user')['user_type'] !== 'user') {
+            return 0;
+        }
+        return (new Message_Model())
+            ->where('user_id', session('user')['id'])
+            ->where('is_read', 0)
+            ->countAllResults();
     }
 
     public function dashboard()
     {
-        // Restrict access
-        $redirect = $this->redirectIfNotClient();
-        if ($redirect) return $redirect;
+        if ($redirect = $this->redirectIfNotClient()) return $redirect;
 
         session()->set('current_page', 'dashboard');
         session()->set('page_title', 'Dashboard');
         session()->set('page_description', 'Account Analytics Overview');
 
+        $userId = session('user')['id'];
+
         $Appointment_Model = new Appointment_Model();
-        $user = session()->get('user');
-        $client_id = $user['id'];
+        $Message_Model     = new Message_Model();
 
         $appointments = $Appointment_Model
-            ->where('client_id', $client_id)
+            ->where('client_id', $userId)
             ->orderBy('appointment_date', 'DESC')
             ->findAll();
 
         $appointmentCount = count($appointments);
 
-        return view("landing/layouts/header") .
-            view("client/dashboard", [
-                'appointments' => $appointments,
+        $messageCount = $Message_Model
+            ->where('user_id', $userId)
+            ->countAllResults();
+
+        return view("landing/layouts/header", ['unreadCount' => $this->getUnreadCount()])
+            . view("client/dashboard", [
+                'appointments'     => $appointments,
                 'appointmentCount' => $appointmentCount,
-            ]) .
-            view("landing/layouts/footer");
+                'messageCount'     => $messageCount,
+            ])
+            . view("landing/layouts/footer");
     }
 
     public function profile()
     {
-        // Restrict access
-        $redirect = $this->redirectIfNotClient();
-        if ($redirect) return $redirect;
-
+        if ($redirect = $this->redirectIfNotClient()) return $redirect;
         session()->set('current_page', 'profile');
         session()->set('page_title', 'Profile');
         session()->set('page_description', 'Personal Details');
 
-        $user = session()->get('user');
-        $userId = $user['id'];
+        $user       = session('user');
+        $profile    = (new Profile_Model())->where('user_id', $user['id'])->first();
+        $userData   = (new User_Model())->find($user['id']);
 
-        $Profile_Model = new Profile_Model();
-        $User_Model = new User_Model();
-
-        $profile = $Profile_Model->where('user_id', $userId)->first();
-        $userData = $User_Model->find($userId);
-
-        return view("landing/layouts/header") .
-            view("client/profile", [
+        return view("landing/layouts/header", ['unreadCount' => $this->getUnreadCount()])
+            . view("client/profile", [
                 'profile' => $profile,
-                'user' => $userData,
-            ]) .
-            view("landing/layouts/footer");
+                'user'    => $userData,
+            ])
+            . view("landing/layouts/footer");
+    }
+
+    public function appointments()
+    {
+        if ($redirect = $this->redirectIfNotClient()) return $redirect;
+        session()->set('current_page', 'appointments');
+        session()->set('page_title', 'Appointments');
+        session()->set('page_description', 'Appointment History & Status');
+
+        $appointments = (new Appointment_Model())
+            ->where('client_id', session('user')['id'])
+            ->orderBy('appointment_date', 'DESC')
+            ->findAll();
+
+        return view("landing/layouts/header", ['unreadCount' => $this->getUnreadCount()])
+            . view("client/appointments", ['appointments' => $appointments])
+            . view("landing/layouts/footer");
+    }
+
+    public function messages()
+    {
+        if ($redirect = $this->redirectIfNotClient()) return $redirect;
+
+        session()->set('current_page', 'messages');
+        session()->set('page_title', 'Messages');
+        session()->set('page_description', 'Messages Inbox');
+
+        $messages = (new Message_Model())
+            ->where('user_id', session('user')['id'])
+            ->where('is_deleted', false)
+            ->orderBy('received_at', 'DESC')
+            ->findAll();
+
+        $unreadCount = 0;
+        $readCount   = 0;
+
+        foreach ($messages as &$msg) {
+            $msg['unread'] = !$msg['is_read'];
+            $msg['received_at'] = date('Y-m-d H:i:s', strtotime($msg['received_at']));
+            // ❌ Don't strip tags here — let the view handle safe rendering
+            if ($msg['unread']) $unreadCount++;
+            else $readCount++;
+        }
+
+        return view("landing/layouts/header", ['unreadCount' => $unreadCount])
+            . view("client/messages", compact('messages', 'unreadCount', 'readCount'))
+            . view("landing/layouts/footer");
+    }
+
+    public function markMessageRead()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(403)->setJSON(['error' => 'Forbidden']);
+        }
+
+        $id     = $this->request->getPost('id');
+        $userId = session('user')['id'];
+        $model  = new Message_Model();
+
+        if ($msg = $model->where('id', $id)->where('user_id', $userId)->first()) {
+            if (!$msg['is_read']) {
+                $model->update($id, ['is_read' => 1]);
+            }
+        }
+
+        return $this->response->setJSON(['status' => 'success']);
     }
 
     public function update_profile()
@@ -268,33 +329,6 @@ class Client extends BaseController
         ]);
     }
 
-    public function appointments()
-    {
-        // Restrict access
-        $redirect = $this->redirectIfNotClient();
-        if ($redirect) return $redirect;
-
-        session()->set('current_page', 'appointments');
-        session()->set('page_title', 'Appointments');
-        session()->set('page_description', 'Appointment History & Status');
-
-        $Appointment_Model = new Appointment_Model();
-        $user = session()->get('user');
-        $client_id = $user['id'];
-
-        // Fetch appointments for the logged-in client
-        $appointments = $Appointment_Model
-            ->where('client_id', $client_id)
-            ->orderBy('appointment_date', 'DESC')
-            ->findAll();
-
-        return view("landing/layouts/header") .
-            view("client/appointments", [
-                'appointments' => $appointments,
-            ]) .
-            view("landing/layouts/footer");
-    }
-
     public function add_appointment()
     {
         $Appointment_Model = new Appointment_Model();
@@ -378,31 +412,37 @@ class Client extends BaseController
         ]);
     }
 
-    public function messages()
+    public function delete_message($id = null)
     {
-        $redirect = $this->redirectIfNotClient();
-        if ($redirect) return $redirect;
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Invalid request.']);
+        }
 
-        session()->set('current_page', 'messages');
-        session()->set('page_title', 'Messages');
-        session()->set('page_description', 'Messages Inbox');
+        $user = session()->get('user');
 
-        // Simulated messages
-        $messages = [
-            ['subject' => 'Appointment Confirmation', 'received_at' => '2025-08-01 09:15:00', 'unread' => true],
-            ['subject' => 'Follow‑up Reminder',       'received_at' => '2025-08-03 14:22:00', 'unread' => true],
-            ['subject' => 'New Promo Offer',          'received_at' => '2025-08-05 11:00:00', 'unread' => true],
-            ['subject' => 'Clinic Update Notice',     'received_at' => '2025-08-10 08:30:00', 'unread' => false],
-            ['subject' => 'Your Feedback Received',   'received_at' => '2025-08-12 16:45:00', 'unread' => false],
-            ['subject' => 'Service Tips',             'received_at' => '2025-08-14 10:00:00', 'unread' => false],
-            ['subject' => 'Health Package Renewal',   'received_at' => '2025-08-16 13:15:00', 'unread' => false],
-        ];
+        if (!$user || $user['user_type'] !== 'user') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized.']);
+        }
 
-        $unreadCount = count(array_filter($messages, fn($m) => $m['unread']));
-        $readCount   = count($messages) - $unreadCount;
+        $Message_Model = new \App\Models\Message_Model();
 
-        return view("landing/layouts/header")
-            . view("client/messages", compact('messages', 'unreadCount', 'readCount'))
-            . view("landing/layouts/footer");
+        $message = $Message_Model
+            ->where('id', $id)
+            ->where('user_id', $user['id'])
+            ->first();
+
+        if (!$message) {
+            return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Message not found.']);
+        }
+
+        // Perform soft delete
+        $Message_Model->update($id, ['is_deleted' => 1]);
+
+        session()->setFlashdata([
+            'type' => 'success',
+            'message' => 'Message deleted successfully.',
+        ]);
+
+        return $this->response->setJSON(['success' => true]);
     }
 }
