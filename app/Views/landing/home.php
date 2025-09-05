@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- SEO -->
-    <title>DentalCare+ | <?= session()->get('page_title') ?></title>
+    <title>Can-Avid Dental Center | <?= session()->get('page_title') ?></title>
 
-    <meta name="description" content="DentalCare+ offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.">
-    <meta name="author" content="DentalCare+ Web Team">
+    <meta name="description" content="Can-Avid Dental Center offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.">
+    <meta name="author" content="Can-Avid Dental Center Web Team">
 
     <!-- Favicon -->
-    <link rel="icon" href="<?= base_url("favicon.ico") ?>" type="image/x-icon">
+    <link rel="icon" href="<?= base_url("favicon.ico") ?>?v=1.0" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,12 +31,39 @@
     <link rel="stylesheet" href="public/dist/landing/css/flaticon.css">
     <link rel="stylesheet" href="public/dist/landing/css/icomoon.css">
     <link rel="stylesheet" href="public/dist/landing/css/style.css">
+
+    <style>
+        .info h3 {
+            min-height: 2.4em;
+            /* roughly 2 lines of text */
+            line-height: 1.2em;
+            overflow: hidden;
+        }
+
+        .info .position {
+            display: block;
+            min-height: 1.4em;
+            /* exactly one line for job title */
+            line-height: 1.4em;
+            margin-bottom: 0.5rem;
+        }
+
+        .clamp-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 7;
+            line-clamp: 7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 9.8em;
+        }
+    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="<?= base_url() ?>">Dental<span>Care+</span></a>
+            <a class="navbar-brand" href="<?= base_url() ?>"><span>Can-Avid Dental Center</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -83,9 +110,9 @@
     </nav>
 
     <!-- Slider -->
-    <section class="home-slider owl-carousel" aria-label="DentalCare+ Main Slider">
+    <section class="home-slider owl-carousel" aria-label="Can-Avid Dental Center Main Slider">
         <!-- Slide 1 -->
-        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_1.jpg');" role="group" aria-roledescription="slide" aria-label="Easy Online Booking & Care Management">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/main-hero-bg.jpg');" role="group" aria-roledescription="slide" aria-label="Easy Online Booking & Care Management">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -94,7 +121,7 @@
                             Easy Online Booking &amp; Care Management
                         </h1>
                         <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                            DentalCare+ makes scheduling your dental visits simple and stress-free with our secure, easy-to-use system.
+                            Can-Avid Dental Center makes scheduling your dental visits simple and stress-free with our secure, easy-to-use system.
                         </p>
                         <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                             <a href="#book_now_section" class="btn btn-primary px-4 py-3" role="button" aria-label="Book an appointment now">Get Started</a>
@@ -105,7 +132,7 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_2.jpg');" role="group" aria-roledescription="slide" aria-label="Making Your Dental Visits Smooth & Convenient">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/main-hero-bg-2.jfif');" role="group" aria-roledescription="slide" aria-label="Making Your Dental Visits Smooth & Convenient">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -125,7 +152,7 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="slider-item" style="background-image: url('public/dist/landing/images/bg_3.jpg');" role="group" aria-roledescription="slide" aria-label="Trusted Care You Can Rely On">
+        <div class="slider-item" style="background-image: url('public/dist/landing/images/main-hero-bg-3.jfif');" role="group" aria-roledescription="slide" aria-label="Trusted Care You Can Rely On">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text align-items-center" data-scrollax-parent="true">
@@ -151,7 +178,7 @@
             <div class="row no-gutters">
                 <div class="col-md-3 color-1 p-4">
                     <h3 class="mb-4">Who are we?</h3>
-                    <p>DentalCare+ offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.</p>
+                    <p>Can-Avid Dental Center offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.</p>
                     <span class="phone-number">(+63) 912 345 6789</span>
                 </div>
                 <div class="col-md-3 color-2 p-4">
@@ -170,7 +197,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 color-3 p-4">
-                    <h3 class="mb-2">Make an Appointment <?= !session("user") ? "<small class='text-light'>(Login Required)</small>" : "" ?></h3>
+                    <h3 class="mb-2">Make an Appointment <?= !session("user") ? "<small class='text-danger'>(Login Required)</small>" : "" ?></h3>
 
                     <form action="javascript:void(0)" class="appointment-form">
                         <div class="row">
@@ -235,12 +262,13 @@
         </div>
     </section>
 
+    <!-- Services Section -->
     <section class="ftco-section ftco-services">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-5">
                 <div class="col-md-7 text-center heading-section ftco-animate">
                     <h2 class="mb-2">Our Services Keep You Smiling</h2>
-                    <p>At DentalCare+, we provide gentle, expert care using the latest technology to keep your smile healthy and bright.</p>
+                    <p>At Can-Avid Dental Center, we provide gentle, expert care using the latest technology to keep your smile healthy and bright.</p>
                 </div>
             </div>
             <div class="row">
@@ -292,11 +320,11 @@
         </div>
         <div class="container-wrap mt-5">
             <div class="row d-flex no-gutters">
-                <div class="col-md-6 img" style="background-image: url(public/dist/landing/images/about-2.jpg);"></div>
+                <div class="col-md-6 img" style="background-image: url(public/dist/landing/images/main-hero-bg.jpg);"></div>
                 <div class="col-md-6 d-flex">
                     <div class="about-wrap">
                         <div class="heading-section heading-section-white mb-5 ftco-animate">
-                            <h2 class="mb-2">DentalCare+ with a Personal Touch</h2>
+                            <h2 class="mb-2">Can-Avid Dental Center with a Personal Touch</h2>
                             <p>We believe every patient deserves personalized care delivered by experienced dentists using state-of-the-art technology.</p>
                         </div>
                         <div class="list-services d-flex ftco-animate">
@@ -332,95 +360,101 @@
         </div>
     </section>
 
+    <!-- Employees Section -->
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-5">
                 <div class="col-md-7 text-center heading-section ftco-animate">
-                    <h2 class="mb-3">Meet Our Experienced Dentists</h2>
-                    <p>Our dental team consists of licensed, highly skilled professionals dedicated to exceptional oral healthcare. With expertise in general and specialized dentistry, they focus on your comfort and long-term dental wellness. Get to know the experts behind your confident smile.</p>
+                    <h2 class="mb-3">Meet Our Experienced Team</h2>
+                    <p class="subheading">
+                        Our close-knit team delivers personalized dental care with a friendly touch. Meet the dedicated professionals who make every visit comfortable and welcoming.
+                    </p>
                 </div>
             </div>
             <div class="row">
-                <!-- Dentist 1 -->
+                <!-- Staff Card -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_5.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/user-image.png);"></div>
                         <div class="info text-center">
-                            <h3><a href="javascript:void(0)">Tom Smith</a></h3>
-                            <span class="position">General Dentist</span>
+                            <h3><a href="javascript:void(0)">Dr. Melanie Coso Chicano</a></h3>
+                            <span class="position">Owner/Dentist</span>
                             <div class="text">
-                                <p>Tom has over 10 years of experience in restorative and preventive dental care. He is committed to helping patients maintain healthy, confident smiles through comprehensive treatment.</p>
-                                <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
-                                </ul>
+                                <!-- Truncated text -->
+                                <p class="clamp-text"
+                                    data-name="Dr. Melanie Coso Chicano"
+                                    data-role="Owner/Dentist"
+                                    data-fulltext="Dr. Melanie Coso Chicano is the owner and lead dentist at Can-Avid Dental Center. With a passion for patient-centered care, she provides a full range of dental services and is dedicated to ensuring every patient receives gentle, high-quality treatment in a welcoming environment.">
+                                    Dr. Melanie Coso Chicano is the owner and lead dentist at Can-Avid Dental Center. With a passion for patient-centered care, she provides a full range of dental services and is dedicated to ensuring every patient receives gentle, high-quality treatment in a welcoming environment.
+                                </p>
+                                <!-- Button -->
+                                <button class="btn btn-sm btn-outline-primary mt-2 more-details">Read More</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Dentist 2 -->
+                <!-- Staff Card -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_6.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/user-image.png);"></div>
                         <div class="info text-center">
-                            <h3><a href="javascript:void(0)">Mark Wilson</a></h3>
-                            <span class="position">Orthodontist</span>
+                            <h3><a href="javascript:void(0)">Leonida Pomarejos</a></h3>
+                            <span class="position">Clinic Assistant</span>
                             <div class="text">
-                                <p>Mark specializes in orthodontics, offering customized braces and aligners. He helps patients achieve beautiful, well-aligned smiles with personalized care and ...</p>
-                                <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
-                                </ul>
+                                <!-- Truncated text -->
+                                <p class="clamp-text"
+                                    data-name="Leonida Pomarejos"
+                                    data-role="Clinic Assistant"
+                                    data-fulltext="Leonida is a dedicated clinic assistant who supports both patients and dental staff. She ensures smooth clinic operations, assists with procedures, and helps create a welcoming environment for everyone who visits.">
+                                    Leonida is a dedicated clinic assistant who supports both patients and dental staff. She ensures smooth clinic operations, assists with procedures, and helps create a welcoming environment for everyone who visits.
+                                </p>
+                                <!-- Button -->
+                                <button class="btn btn-sm btn-outline-primary mt-2 more-details">Read More</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Dentist 3 -->
+                <!-- Staff Card -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_7.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/user-image.png);"></div>
                         <div class="info text-center">
-                            <h3><a href="javascript:void(0)">Patrick Jacobson</a></h3>
-                            <span class="position">Pediatric Dentist</span>
+                            <h3><a href="javascript:void(0)">Roderic Porteza</a></h3>
+                            <span class="position">Company Driver</span>
                             <div class="text">
-                                <p>Patrick focuses on pediatric dentistry, creating a fun and comforting environment. He ensures children develop healthy oral habits for a lifetime of strong teeth and gums.</p>
-                                <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
-                                </ul>
+                                <!-- Truncated text -->
+                                <p class="clamp-text"
+                                    data-name="Roderick Porteza"
+                                    data-role="Company Driver"
+                                    data-fulltext="Roderick ensures the safe and timely transportation of patients and staff. He is dedicated to providing excellent service and support to the dental team. With a strong focus on reliability and safety, Roderick assists with clinic logistics, manages transportation needs for appointments and outreach, and helps maintain a smooth workflow for both staff and patients. His friendly attitude and commitment make him a valued member of the Can-Avid Dental Center team.">
+                                    Roderick ensures the safe and timely transportation of patients and staff. He is dedicated to providing excellent service and support to the dental team. With a strong focus on reliability and safety, Roderick assists with clinic logistics, manages transportation needs for appointments and outreach, and helps maintain a smooth workflow for both staff and patients. His friendly attitude and commitment make him a valued member of the Can-Avid Dental Center team.
+                                </p>
+                                <!-- Button -->
+                                <button class="btn btn-sm btn-outline-primary mt-2 more-details">Read More</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Staff 4 -->
+                <!-- Staff Card -->
                 <div class="col-lg-3 col-md-6 d-flex mb-sm-4 ftco-animate">
                     <div class="staff">
-                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/person_8.jpg);"></div>
+                        <div class="img mb-4" style="background-image: url(public/dist/landing/images/user-image.png);"></div>
                         <div class="info text-center">
-                            <h3><a href="javascript:void(0)">Ivan Dorchsner</a></h3>
-                            <span class="position">Dental Hygienist</span>
+                            <h3><a href="javascript:void(0)">Maricel Sablan Abuton</a></h3>
+                            <span class="position">Company Driver</span>
                             <div class="text">
-                                <p>Ivan is skilled in dental hygiene, providing gentle cleanings and education. He supports patients in maintaining strong teeth and healthy gums between visits.</p>
-                                <ul class="ftco-social">
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
-                                    <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-google-plus"></span></a></li>
-                                </ul>
+                                <!-- Truncated text -->
+                                <p class="clamp-text"
+                                    data-name="Maricel Sablan Abuton"
+                                    data-role="Housekeeping"
+                                    data-fulltext="Maricel is responsible for maintaining a clean and organized environment in the clinic. She ensures that all areas are sanitized and ready for patient care, contributing to the overall comfort and safety of everyone who visits.">
+                                    Maricel is responsible for maintaining a clean and organized environment in the clinic. She ensures that all areas are sanitized and ready for patient care, contributing to the overall comfort and safety of everyone who visits.
+                                </p>
+                                <!-- Button -->
+                                <button class="btn btn-sm btn-outline-primary mt-2 more-details">Read More</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row mt-5 justify-content-center">
-                <div class="col-md-8 ftco-animate">
-                    <p>Our dedicated team works closely with you to create personalized treatment plans that promote lasting oral health and beautiful smiles.</p>
                 </div>
             </div>
         </div>
@@ -514,6 +548,7 @@
         </div>
     </section>
 
+    <!-- Client Testimony -->
     <section class="ftco-section testimony-section bg-light">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
@@ -527,13 +562,13 @@
                     <div class="carousel-testimony owl-carousel ftco-owl">
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/user-image.png)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
                                 </div>
                                 <div class="text text-center">
-                                    <p class="mb-5">DentalCare+ transformed my dental visits with seamless booking and friendly reminders. The staff’s warmth and professionalism made each visit stress-free and enjoyable.</p>
+                                    <p class="mb-5">Can-Avid Dental Center transformed my dental visits with seamless booking and friendly reminders. The staff’s warmth and professionalism made each visit stress-free and enjoyable.</p>
                                     <p class="name">Dennis Green</p>
                                     <span class="position">Patient</span>
                                 </div>
@@ -541,13 +576,13 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_2.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/user-image.png)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
                                 </div>
                                 <div class="text text-center">
-                                    <p class="mb-5">As a designer, I appreciate DentalCare+’s attention to detail — from their sleek online platform to the personalized care I receive. They truly understand patient needs.</p>
+                                    <p class="mb-5">As a designer, I appreciate Can-Avid Dental Center’s attention to detail — from their sleek online platform to the personalized care I receive. They truly understand patient needs.</p>
                                     <p class="name">Alicia Turner</p>
                                     <span class="position">Interface Designer</span>
                                 </div>
@@ -555,13 +590,13 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_3.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/user-image.png)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
                                 </div>
                                 <div class="text text-center">
-                                    <p class="mb-5">DentalCare+ blends cutting-edge technology with compassionate care, making me confident in every smile I create as a UI designer. Highly recommend their services!</p>
+                                    <p class="mb-5">Can-Avid Dental Center blends cutting-edge technology with compassionate care, making me confident in every smile I create as a UI designer. Highly recommend their services!</p>
                                     <p class="name">Samuel Lee</p>
                                     <span class="position">UI Designer</span>
                                 </div>
@@ -569,13 +604,13 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/user-image.png)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
                                 </div>
                                 <div class="text text-center">
-                                    <p class="mb-5">The DentalCare+ team supports my busy life as a web developer by providing flexible scheduling and expert care. Their personalized approach makes all the difference.</p>
+                                    <p class="mb-5">The Can-Avid Dental Center team supports my busy life as a web developer by providing flexible scheduling and expert care. Their personalized approach makes all the difference.</p>
                                     <p class="name">Karen Smith</p>
                                     <span class="position">Web Developer</span>
                                 </div>
@@ -583,13 +618,13 @@
                         </div>
                         <div class="item">
                             <div class="testimony-wrap p-4 pb-5">
-                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/person_1.jpg)">
+                                <div class="user-img mb-5" style="background-image: url(public/dist/landing/images/user-image.png)">
                                     <span class="quote d-flex align-items-center justify-content-center">
                                         <i class="icon-quote-left"></i>
                                     </span>
                                 </div>
                                 <div class="text text-center">
-                                    <p class="mb-5">DentalCare+’s innovative approach and thorough care make me feel valued as a patient. Their commitment to oral health is inspiring and reassuring for my analytics work-life balance.</p>
+                                    <p class="mb-5">Can-Avid Dental Center’s innovative approach and thorough care make me feel valued as a patient. Their commitment to oral health is inspiring and reassuring for my analytics work-life balance.</p>
                                     <p class="name">Michael Johnson</p>
                                     <span class="position">System Analyst</span>
                                 </div>
@@ -601,4 +636,4 @@
         </div>
     </section>
 
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.556133073096!2d125.44236388644134!3d11.995616709159993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3309130f0495af71%3A0x78fd50ec1e2ded7d!2sEastern%20Samar%20State%20University%20-%20Can-Avid%20Campus!5e0!3m2!1sen!2sph!4v1748681840619!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d975.6603730009914!2d125.44875826948949!3d11.999290311066945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDU5JzU3LjQiTiAxMjXCsDI2JzU3LjkiRQ!5e0!3m2!1sen!2sph!4v1757041765347!5m2!1sen!2sph" width="100%" height="450" style="border: 1px dashed;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

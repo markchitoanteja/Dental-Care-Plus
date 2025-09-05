@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- SEO -->
-    <title>DentalCare+ | <?= session()->get('page_title') ?></title>
+    <title>Can-Avid Dental Center | <?= session()->get('page_title') ?></title>
 
-    <meta name="description" content="DentalCare+ offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.">
-    <meta name="author" content="DentalCare+ Web Team">
+    <meta name="description" content="Can-Avid Dental Center offers trusted and affordable dental services in Can-avid, Eastern Samar. Book an appointment online today.">
+    <meta name="author" content="Can-Avid Dental Center Web Team">
 
     <!-- Favicon -->
-    <link rel="icon" href="<?= base_url("favicon.ico") ?>" type="image/x-icon">
+    <link rel="icon" href="<?= base_url("favicon.ico") ?>?v=1.0" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,6 +31,33 @@
     <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/flaticon.css") ?>">
     <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/icomoon.css") ?>">
     <link rel="stylesheet" href="<?= base_url("public/dist/landing/css/style.css") ?>">
+
+    <style>
+        .info h3 {
+            min-height: 2.4em;
+            /* roughly 2 lines of text */
+            line-height: 1.2em;
+            overflow: hidden;
+        }
+
+        .info .position {
+            display: block;
+            min-height: 1.4em;
+            /* exactly one line for job title */
+            line-height: 1.4em;
+            margin-bottom: 0.5rem;
+        }
+
+        .clamp-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 7;
+            line-clamp: 7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 9.8em;
+        }
+    </style>
 </head>
 
 <body>
@@ -83,7 +110,7 @@
     </nav>
 
     <section class="home-slider owl-carousel">
-        <div class="slider-item bread-item" style="background-image: url('<?= base_url("public/dist/landing/images/bg_1.jpg") ?>');" data-stellar-background-ratio="0.5">
+        <div class="slider-item bread-item" style="background-image: url('<?= base_url("public/dist/landing/images/main-hero-bg-2.jfif") ?>');" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container" data-scrollax-parent="true">
                 <div class="row slider-text align-items-end">

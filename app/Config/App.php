@@ -17,10 +17,10 @@ class App extends BaseConfig
      * E.g., http://example.com/
      */
     // Offline
-    public string $baseURL = 'http://localhost/Dental-Care-Plus/';
+    // public string $baseURL = 'http://localhost/Can-Avid-Dental-Center/';
 
     // Online
-    // public string $baseURL = 'https://dental-care-plus.essuc.online/';
+    public string $baseURL = 'https://can-avid-dental-center.essuc.online/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

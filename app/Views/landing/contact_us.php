@@ -1,3 +1,20 @@
+<style>
+    .contact-info p {
+        white-space: nowrap;
+        /* keep in one line */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* adds ... if too long */
+    }
+
+    .contact-info p.address {
+        white-space: normal;
+        /* allow wrapping for address only */
+        overflow: visible;
+        text-overflow: unset;
+    }
+</style>
+
 <section class="ftco-section contact-section ftco-degree-bg">
     <div class="container">
         <div class="row d-flex mb-5 contact-info">
@@ -6,16 +23,16 @@
             </div>
             <div class="w-100"></div>
             <div class="col-md-3">
-                <p><span>Address:</span> Can-avid, Eastern Samar, Philippines</p>
+                <p class="address"><span>Address:</span> # 36 National Road, Can-avid, Eastern Samar, Philippines</p>
             </div>
             <div class="col-md-3">
-                <p><span>Phone:</span> <a href="tel://09123456789">+63 912 345 6789</a></p>
+                <p><span>Phone:</span> <a href="tel://09774693841">+63 977 469 3841</a></p>
             </div>
             <div class="col-md-3">
-                <p><span>Email:</span> <a href="mailto:	dentalcareplus@gmail.com">dentalcareplus@gmail.com</a></p>
+                <p><span>Email:</span> <a href="mailto:canavidentalcenter@gmail.com">canavidentalcenter@gmail.com</a></p>
             </div>
             <div class="col-md-3">
-                <p><span>Website:</span> <a href="https://dental-care-plus.essuc.online/">DentalCare+</a></p>
+                <p><span>Website:</span> <a href="https://dental-care-plus.essuc.online/">Can-Avid Dental Center</a></p>
             </div>
         </div>
         <div class="row block-9">
@@ -41,7 +58,7 @@
             </div>
 
             <div class="col-md-6">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.556133073096!2d125.44236388644134!3d11.995616709159993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3309130f0495af71%3A0x78fd50ec1e2ded7d!2sEastern%20Samar%20State%20University%20-%20Can-Avid%20Campus!5e0!3m2!1sen!2sph!4v1748681840619!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d975.6603730009914!2d125.44875826948949!3d11.999290311066945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDU5JzU3LjQiTiAxMjXCsDI2JzU3LjkiRQ!5e0!3m2!1sen!2sph!4v1757041765347!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>

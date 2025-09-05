@@ -3,12 +3,12 @@
                 <div class="row mb-5">
                     <div class="col-md-3">
                         <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">DentalCare+</h2>
-                            <p>Your trusted partner for compassionate and expert dental care, committed to your healthy smile.</p>
+                            <h2 class="ftco-heading-2">Can-Avid Dental Center</h2>
+                            <p>Your great smile begins with a great dentist.</p>
                         </div>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
                             <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="https://www.facebook.com/p/Can-avid-Dental-Center-61554863858050/" target="_blank"><span class="icon-facebook"></span></a></li>
                             <li class="ftco-animate"><a href="javascript:void(0)"><span class="icon-instagram"></span></a></li>
                         </ul>
                     </div>
@@ -30,9 +30,9 @@
                             <h2 class="ftco-heading-2">Office</h2>
                             <div class="block-23 mb-3">
                                 <ul>
-                                    <li><span class="icon icon-map-marker"></span><span class="text">Can-avid, Eastern Samar, Philippines</span></li>
-                                    <li><a href="tel:+639123456789"><span class="icon icon-phone"></span><span class="text">+63 912 345 6789</span></a></li>
-                                    <li><a href="mailto:dentalcareplus@gmail.com"><span class="icon icon-envelope"></span><span class="text">dentalcareplus@gmail.com</span></a></li>
+                                    <li><span class="icon icon-map-marker"></span><span class="text"># 36 National Road, Can-avid, Eastern Samar, Philippines</span></li>
+                                    <li><a href="tel:+639774693841"><span class="icon icon-phone"></span><span class="text">+63 977 469 3841</span></a></li>
+                                    <li><a href="mailto:canavidentalcenter@gmail.com"><span class="icon icon-envelope"></span><span class="text">canavidentalcenter@gmail.com</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -242,6 +242,66 @@
             </div>
         </div>
 
+        <!-- Staff Details Modal -->
+        <div class="modal fade" id="viewStaffModal" tabindex="-1" role="dialog" aria-labelledby="viewStaffLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content shadow-sm border-0 rounded">
+
+                    <!-- Header -->
+                    <div class="modal-header bg-light border-0">
+                        <h5 class="modal-title font-weight-bold mb-0" id="viewStaffLabel">
+                            <i class="fas fa-user-md text-primary mr-2"></i>Staff Details
+                        </h5>
+                        <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size: 1.4rem;">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="modal-body px-4 pt-4 pb-3">
+                        <div class="mb-4">
+                            <h5 id="staffName" class="text-dark font-weight-bold mb-1"></h5>
+                            <small class="text-muted d-block">
+                                <i class="fas fa-user-tag mr-1"></i>
+                                <span id="staffRole"></span>
+                            </small>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="mb-2">
+                            <label class="text-muted font-weight-bold small mb-1">Details</label>
+                            <div class="border rounded p-3 bg-light" style="min-height: 120px;">
+                                <div id="staffContent" class="text-dark" style="white-space: pre-line; line-height: 1.7;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer border-0 px-4 pb-4 pt-0 d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Read More Staff Modal -->
+        <script>
+            document.querySelectorAll('.more-details').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const parent = this.previousElementSibling; // the <p>
+                    document.getElementById('staffName').innerText = parent.getAttribute('data-name');
+                    document.getElementById('staffRole').innerText = parent.getAttribute('data-role');
+                    document.getElementById('staffContent').innerText = parent.getAttribute('data-fulltext');
+                    $('#viewStaffModal').modal('show'); // Bootstrap modal
+                });
+            });
+        </script>
+
+        <!-- Variables and Constants -->
         <script>
             const current_page = "<?= session()->get('current_page') ?>";
             const base_url = "<?= base_url() ?>";
@@ -266,6 +326,5 @@
         <script src="<?= base_url("public/dist/landing/js/scrollax.min.js") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/main.js?v=1.3") ?>"></script>
         <script src="<?= base_url("public/dist/landing/js/script.js?v=2.9") ?>"></script>
-        </body>
-
-        </html>
+    </body>
+</html>
